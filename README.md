@@ -24,37 +24,37 @@ We will not only introduce brand-new evaluation dimensions but also release excl
 
 We release a training set in Chinese and English, including 3-turn, 4-turn, and 5-turn dialogues, focusing on emotional dynamics and underlying reasons for emotional changes. The dataset contains approximately 100 hours of audio data, with only questions recorded, while responses are provided in text format for reference. The data structure is as follows:
 
-train/
-    zh/
-        task1/
-        task2_3/
-        task2_4/
-        task2_5/
-        task3_3/
-        task3_4/
-        task3_5/
-        task1.jsonl
-        task2_3.jsonl
-        task2_4.jsonl
-        task2_5.jsonl
-        task3_3.jsonl
-        task3_4.jsonl
-        task3_5.jsonl
-    en/
-        task1/
-        task2_3/
-        task2_4/
-        task2_5/
-        task3_3/
-        task3_4/
-        task3_5/
-        task1.jsonl
-        task2_3.jsonl
-        task2_4.jsonl
-        task2_5.jsonl
-        task3_3.jsonl
-        task3_4.jsonl
-        task3_5.jsonl
+train/<br>
+&ensp;&ensp;zh/<br>
+&ensp;&ensp;&ensp;&ensp;task1/<br>
+&ensp;&ensp;&ensp;&ensp;task2_3/<br>
+&ensp;&ensp;&ensp;&ensp;task2_4/<br>
+&ensp;&ensp;&ensp;&ensp;task2_5/<br>
+&ensp;&ensp;&ensp;&ensp;task3_3/<br>
+&ensp;&ensp;&ensp;&ensp;task3_4/<br>
+&ensp;&ensp;&ensp;&ensp;task3_5/<br>
+&ensp;&ensp;&ensp;&ensp;task1.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task2_3.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task2_4.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task2_5.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task3_3.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task3_4.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task3_5.jsonl<br>
+&ensp;&ensp;en/<br>
+&ensp;&ensp;&ensp;&ensp;task1/<br>
+&ensp;&ensp;&ensp;&ensp;task2_3/<br>
+&ensp;&ensp;&ensp;&ensp;task2_4/<br>
+&ensp;&ensp;&ensp;&ensp;task2_5/<br>
+&ensp;&ensp;&ensp;&ensp;task3_3/<br>
+&ensp;&ensp;&ensp;&ensp;task3_4/<br>
+&ensp;&ensp;&ensp;&ensp;task3_5/<br>
+&ensp;&ensp;&ensp;&ensp;task1.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task2_3.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task2_4.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task2_5.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task3_3.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task3_4.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task3_5.jsonl<br>
 
 task1: 1-turn dialogues, judging users' emotional status, not participating in evaluation
 
@@ -65,7 +65,27 @@ task3: Contains 3, 4, and 5-turn dialogues, where in the final turn users ask th
 
 2. dev set
 
-We release a development set, including Task 1, Task 2, Task 3, and Task 4 (selected from Task 3 and Task 4)
+We release a development set, including Task 1, Task 2, Task 3, and Task 4 (selected from Task 3 and Task 4). The data structure is as follows:
+
+dev/<br>
+&ensp;&ensp;zh/<br>
+&ensp;&ensp;&ensp;&ensp;task1/<br>
+&ensp;&ensp;&ensp;&ensp;task2/<br>
+&ensp;&ensp;&ensp;&ensp;task3/<br>
+&ensp;&ensp;&ensp;&ensp;task4/<br>
+&ensp;&ensp;&ensp;&ensp;task1.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task2.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task3.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task4.jsonl<br>
+&ensp;&ensp;en/<br>
+&ensp;&ensp;&ensp;&ensp;task1/<br>
+&ensp;&ensp;&ensp;&ensp;task2/<br>
+&ensp;&ensp;&ensp;&ensp;task3/<br>
+&ensp;&ensp;&ensp;&ensp;task4/<br>
+&ensp;&ensp;&ensp;&ensp;task1.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task2.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task3.jsonl<br>
+&ensp;&ensp;&ensp;&ensp;task4.jsonl<br>
 
 Task 1: 1-turn dialogues, judging users' emotional status, not participating in ranking calculation
 
@@ -74,26 +94,6 @@ Task 2: Contains 3, 4, and 5-turn dialogues, used to evaluate the model's respon
 Task 3: Contains 3, 4, and 5-turn dialogues, used to evaluate the model's response text score
 
 Task 4: Contains 3, 4, and 5-turn dialogues, used to evaluate the model's response audio score
-
-dev/
-    zh/
-        task1/
-        task2/
-        task3/
-        task4/
-        task1.jsonl
-        task2.jsonl
-        task3.jsonl
-        task4.jsonl
-    en/
-        task1/
-        task2/
-        task3/
-        task4/
-        task1.jsonl
-        task2.jsonl
-        task3.jsonl
-        task4.jsonl
 
 You can download it via [Google Drive](https://drive.google.com/file/d/1f9muDtrvEoVZDrel3HN4p1lyRjKt_EP9/view?usp=sharing).
 
