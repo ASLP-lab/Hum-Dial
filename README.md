@@ -1,0 +1,122 @@
+# ICASSP2026 HumDial Challenge
+
+This is the official GitHub repository for the ICASSP2026 HumDial Challenge
+
+## Challenge Call 
+
+Have you been following the recent buzz around the impressive performance of next-generation voice dialogue models like GPT-4o, Doubao, and the newly released GPT-Realtime? They are not only lightning-fast and expressive but also enable seamless multimodal interactions, making conversations feel remarkably human.
+
+From the traditional “clunky AI” to today’s “AI assistant,” the evolution of voice dialogue systems has been nothing short of astonishing. **But just how far are we from achieving truly “natural human-machine dialogue”?** While current voice models excel in technical metrics, they still lack a certain “human touch.” They may recognize single emotions like “happiness” or “sadness,” but struggle to truly understand the complexity of our emotional changes or empathize with our situations. They may engage in fluent one-on-one exchanges, yet become flustered in real-world interaction scenarios such as interruptions, overlapping speech, or group chats. This is the “uncanny valley” that current voice dialogue systems struggle to cross.
+
+To break through this bottleneck and advance technology toward truly “human-like” interaction, a coalition of institutions—including **Northwestern Polytechnical University, Nanjing University, The Chinese University of Hong Kong, Huawei Technologies Co., Ltd., and AISHELL**—has jointly launched the HumDial (Human-like Spoken Dialogue Systems) Challenge! We believe a truly intelligent dialogue system must not only “understand clearly, reason logically, and express coherently” but also possess the ability to interact seamlessly with humans in real, emotionally complex environments.
+
+The inaugural HumDial2026 Challenge will be held at ICASSP 2026, a premier conference for speech research, and will focus on two core challenges:
+- **Emotional Intelligence:** Moving beyond simplistic emotion labeling, this track will test a model's ability to accurately understand context-dependent emotions, provide empathetic responses, conduct in-depth reasoning, and dynamically track emotional shifts—empowering AI to truly understand and connect with users.
+- **Full-Duplex Interaction:** Breaking free from rigid turn-based exchanges, this track will evaluate a system's ability to handle interruptions, overlapping speech, real-time feedback, and natural conversational rhythms, helping AI learn to communicate more naturally.
+
+We will not only introduce brand-new evaluation dimensions but also release exclusive, finely annotated datasets of real-world scenarios for each track. If you’re passionate about “human-like” dialogue systems and eager to shape the future of next-generation voice interaction, we welcome you to follow and register for the challenge! Let’s work together to turn AI into a warm, emotionally aware communication partner.
+
+## Dataset
+
+### **Track 1: Emotional Intelligence**  
+
+1. Train Set
+
+We release a training set in Chinese and English, including 3-turn, 4-turn, and 5-turn dialogues, focusing on emotional dynamics and underlying reasons for emotional changes. The dataset contains approximately 100 hours of audio data, with only questions recorded, while responses are provided in text format for reference. The data structure is as follows:
+
+train/
+├── zh/
+│   ├── task1/
+│   ├── task2_3/
+│   ├── task2_4/
+│   ├── task2_5/
+│   ├── task3_3/
+│   ├── task3_4/
+│   ├── task3_5/
+│   ├── task1.jsonl
+│   ├── task2_3.jsonl
+│   ├── task2_4.jsonl
+│   ├── task2_5.jsonl
+│   ├── task3_3.jsonl
+│   ├── task3_4.jsonl
+│   └── task3_5.jsonl
+└── en/
+    ├── task1/
+    ├── task2_3/
+    ├── task2_4/
+    ├── task2_5/
+    ├── task3_3/
+    ├── task3_4/
+    ├── task3_5/
+    ├── task1.jsonl
+    ├── task2_3.jsonl
+    ├── task2_4.jsonl
+    ├── task2_5.jsonl
+    ├── task3_3.jsonl
+    ├── task3_4.jsonl
+    └── task3_5.jsonl
+
+task1: 1-turn dialogues, judging users' emotional status, not participating in evaluation
+
+task2: Contains 3, 4, and 5-turn dialogues, where in the final turn users ask the model about their own emotional changes
+
+task3: Contains 3, 4, and 5-turn dialogues, where in the final turn users ask the model about the underlying reasons for emotions
+
+
+2. dev set
+
+我们放出一个开发集，包含任务一、任务二、任务三、任务四（从任务三和任务四中挑取）
+
+task1: 1-turn dialogues, judging users' emotional status, 不参与计算排名
+
+task2: Contains 3, 4, and 5-turn dialogues, 用于评估模型的回答文本得分
+
+task3: Contains 3, 4, and 5-turn dialogues, 用于评估模型的回答文本得分
+
+task4: Contains 3, 4, and 5-turn dialogues, 用于评估模型的回答音频得分
+
+dev/
+├── zh/
+│   ├── task1/
+│   ├── task2/
+│   ├── task3/
+│   ├── task4/
+│   ├── task1.jsonl
+│   ├── task2.jsonl
+│   ├── task3.jsonl
+│   ├── task4.jsonl
+└── en/
+    ├── task1/
+    ├── task2/
+    ├── task3/
+    ├── task4/
+    ├── task1.jsonl
+    ├── task2.jsonl
+    ├── task3.jsonl
+    └── task4.jsonl
+
+你可以通过[google Drive](https://drive.google.com/file/d/1f9muDtrvEoVZDrel3HN4p1lyRjKt_EP9/view?usp=sharing)下载.
+
+### **Track 2: Full-Duplex Interaction**  
+We will provide multi-turn Chinese and English dialogue data from real recordings, covering typical scenarios such as speech interruptions and recognition rejection. Accompanied by strict annotations, this dataset will be used to comprehensively evaluate participating systems in three core aspects: response speed, behavioral rationality, and linguistic naturalness.
+
+- The dataset is designed to cover the core scenarios of emotional intelligence and full-duplex interaction, ensuring diversity and authenticity to comprehensively evaluate the performance of participating models. It includes dialogue scenes in both Chinese and English, covering a wide range of emotional and conversational contexts. 
+- For each task in the challenge, we will provide a dedicated set of real-world recorded speech data to serve as the train set and test set. These datasets are collected from natural, human-human or human-machine interactions to ensure authenticity and cover diverse scenarios aligned with the respective tasks.
+- In addition, we will release the complete data generation pipeline, enabling participants to reproduce or extend the synthetic dataset if desired. Participants are also free to use any publicly available speech or text datasets to train or fine-tune their models, provided they do not use any private or unauthorized data sources.
+- All participants are strictly prohibited from using any part of the official test set for training or parameter tuning. The use of test labels or any test data leakage will result in disqualification.
+
+## Baseline
+
+### **Emotional Intelligence:**
+
+The competition provides a baseline system built upon [OpenS2S](https://github.com/CASIA-LM/OpenS2S).This baseline serves as a reproducible and extensible starting point, helping participants better benchmark their systems and ensuring fair comparison across different approaches.
+
+You can generate the data in the required baseline format by running [get_token.py](Emotional Intelligence/get_token.py), and then refer to OpenS2S for fine-tuning.
+
+### **Full-Duplex Interaction**
+
+......
+
+## Evaluation
+
+The Emotional_Intelligence folder provides evaluation prompts for Task 2, Task 3, and Task 4. The evaluation model used is [Qwen/Qwen3-Omni-30B-A3B-Instruct](https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Instruct).

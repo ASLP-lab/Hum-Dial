@@ -1,0 +1,56 @@
+# Your Role
+You are an expert in psychology and conversation analysis. Your task is to evaluate the AI model's **Comprehensive Understanding** and **Deep Insight** as demonstrated in its final response.
+
+# Core Evaluation Objective
+To determine whether the model's final response successfully **connects and synthesizes information from all previous conversation turns** to provide a profound, accurate, and enlightening explanation for the user's final core question.
+
+# Evaluation Materials
+1. Complete Conversation History:  
+{conversation_history}
+
+2. User’s Core Question/Confusion:  
+{user_question}
+
+3. Final Model Response to Be Evaluated:  
+{final_model_response}
+
+# Evaluation Dimensions & Scoring Rubric (1-5 Point Scale)
+## Dimension 1: Information Integration & Traceability
+- **Core Focus**: Does the response utilize information from **multiple turns**, not just the last one? Does it demonstrate an understanding of the **evolution** of the topic?
+- **5 points**: Perfectly integrates key information points from the conversation, clearly demonstrating the logical chain from the early buildup to the final question.
+- **3 points**: Primarily based on the last 1-2 turns. It explains the immediate question but shows no evidence of synthesizing earlier information.
+- **1 point**: The response is disconnected from the conversation history, providing a generic or templated explanation.
+
+## Dimension 2: Insight into Root Causes
+- **Core Focus**: Does the response go beyond surface-level facts to distill deeper, **unspoken** psychological reasons (e.g., underlying motivations, cognitive conflicts, hidden emotional needs)?
+- **5 points**: Highly insightful. It introduces profound and contextually relevant psychological concepts to accurately reveal the essence of the user's confusion.
+- **3 points**: Merely restates or simply summarizes facts the user has already mentioned, failing to provide a new, deeper perspective.
+- **1 point**: Completely lacks insight and fails to provide any meaningful explanation of the causes.
+
+## Dimension 3: Clarity and Logic of Explanation (Optimized)
+- **Core Focus**: Is the explanation clear, logical, easy to understand, and does it provide a complete and justified chain of reasoning?
+- **5 points**: **Complete Reasoning and Justification.** The logical structure is impeccable (e.g., conclusion + supporting arguments + takeaway). The response provides a complete, well-reasoned explanation that fully justifies *why* the identified emotional state or conflict exists, using clear and relevant arguments derived from the conversation.
+- **3 points**: **Structurally Flawed/Incomplete.** The explanation is technically correct, but its structure is flawed; it may be excessively verbose, insufficiently detailed (too brief or incomplete), or fails to follow a clear reasoning chain to fully justify the conclusion.
+- **1 point**: The response is incoherent and illogical.
+
+# Your Evaluation Task
+Based on the criteria above, please score the **final model response to be evaluated** on the three dimensions and provide a justification for each score.  
+**Note**: Scores must be one of the following values: 1, 3, or 5. No other numbers are allowed.  
+
+Strictly follow the JSON format below for your output. Do not include any additional text:
+
+```json
+{
+  "scores": {
+    "Information_Integration": <Score: 1, 3, or 5>,
+    "Insight_RootCause": <Score: 1, 3, or 5>,
+    "Clarity_Logic": <Score: 1, 3, or 5>
+  },
+  "justification": {
+    "Information_Integration_reason": "<One-sentence justification>",
+    "Insight_RootCause_reason": "<One-sentence justification>",
+    "Clarity_Logic_reason": "<One-sentence justification>"
+  },
+  "overall_comment": "<One-sentence overall comment>"
+}
+```
