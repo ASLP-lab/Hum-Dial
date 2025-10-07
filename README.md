@@ -25,36 +25,36 @@ We will not only introduce brand-new evaluation dimensions but also release excl
 We release a training set in Chinese and English, including 3-turn, 4-turn, and 5-turn dialogues, focusing on emotional dynamics and underlying reasons for emotional changes. The dataset contains approximately 100 hours of audio data, with only questions recorded, while responses are provided in text format for reference. The data structure is as follows:
 
 train/
-├── zh/
-│   ├── task1/
-│   ├── task2_3/
-│   ├── task2_4/
-│   ├── task2_5/
-│   ├── task3_3/
-│   ├── task3_4/
-│   ├── task3_5/
-│   ├── task1.jsonl
-│   ├── task2_3.jsonl
-│   ├── task2_4.jsonl
-│   ├── task2_5.jsonl
-│   ├── task3_3.jsonl
-│   ├── task3_4.jsonl
-│   └── task3_5.jsonl
-└── en/
-    ├── task1/
-    ├── task2_3/
-    ├── task2_4/
-    ├── task2_5/
-    ├── task3_3/
-    ├── task3_4/
-    ├── task3_5/
-    ├── task1.jsonl
-    ├── task2_3.jsonl
-    ├── task2_4.jsonl
-    ├── task2_5.jsonl
-    ├── task3_3.jsonl
-    ├── task3_4.jsonl
-    └── task3_5.jsonl
+    zh/
+        task1/
+        task2_3/
+        task2_4/
+        task2_5/
+        task3_3/
+        task3_4/
+        task3_5/
+        task1.jsonl
+        task2_3.jsonl
+        task2_4.jsonl
+        task2_5.jsonl
+        task3_3.jsonl
+        task3_4.jsonl
+        task3_5.jsonl
+    en/
+        task1/
+        task2_3/
+        task2_4/
+        task2_5/
+        task3_3/
+        task3_4/
+        task3_5/
+        task1.jsonl
+        task2_3.jsonl
+        task2_4.jsonl
+        task2_5.jsonl
+        task3_3.jsonl
+        task3_4.jsonl
+        task3_5.jsonl
 
 task1: 1-turn dialogues, judging users' emotional status, not participating in evaluation
 
@@ -65,37 +65,37 @@ task3: Contains 3, 4, and 5-turn dialogues, where in the final turn users ask th
 
 2. dev set
 
-我们放出一个开发集，包含任务一、任务二、任务三、任务四（从任务三和任务四中挑取）
+We release a development set, including Task 1, Task 2, Task 3, and Task 4 (selected from Task 3 and Task 4)
 
-task1: 1-turn dialogues, judging users' emotional status, 不参与计算排名
+Task 1: 1-turn dialogues, judging users' emotional status, not participating in ranking calculation
 
-task2: Contains 3, 4, and 5-turn dialogues, 用于评估模型的回答文本得分
+Task 2: Contains 3, 4, and 5-turn dialogues, used to evaluate the model's response text score
 
-task3: Contains 3, 4, and 5-turn dialogues, 用于评估模型的回答文本得分
+Task 3: Contains 3, 4, and 5-turn dialogues, used to evaluate the model's response text score
 
-task4: Contains 3, 4, and 5-turn dialogues, 用于评估模型的回答音频得分
+Task 4: Contains 3, 4, and 5-turn dialogues, used to evaluate the model's response audio score
 
 dev/
-├── zh/
-│   ├── task1/
-│   ├── task2/
-│   ├── task3/
-│   ├── task4/
-│   ├── task1.jsonl
-│   ├── task2.jsonl
-│   ├── task3.jsonl
-│   ├── task4.jsonl
-└── en/
-    ├── task1/
-    ├── task2/
-    ├── task3/
-    ├── task4/
-    ├── task1.jsonl
-    ├── task2.jsonl
-    ├── task3.jsonl
-    └── task4.jsonl
+    zh/
+        task1/
+        task2/
+        task3/
+        task4/
+        task1.jsonl
+        task2.jsonl
+        task3.jsonl
+        task4.jsonl
+    en/
+        task1/
+        task2/
+        task3/
+        task4/
+        task1.jsonl
+        task2.jsonl
+        task3.jsonl
+        task4.jsonl
 
-你可以通过[google Drive](https://drive.google.com/file/d/1f9muDtrvEoVZDrel3HN4p1lyRjKt_EP9/view?usp=sharing)下载.
+You can download it via [Google Drive](https://drive.google.com/file/d/1f9muDtrvEoVZDrel3HN4p1lyRjKt_EP9/view?usp=sharing).
 
 ### **Track 2: Full-Duplex Interaction**  
 We will provide multi-turn Chinese and English dialogue data from real recordings, covering typical scenarios such as speech interruptions and recognition rejection. Accompanied by strict annotations, this dataset will be used to comprehensively evaluate participating systems in three core aspects: response speed, behavioral rationality, and linguistic naturalness.
