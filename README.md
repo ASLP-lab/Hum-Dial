@@ -6,11 +6,11 @@ This is the official GitHub repository for the [ICASSP2026 HumDial Challenge](ht
 
 ### Challenge Tasks
 
-- **Task 1**: Emotion Recognition - Identify both surface and deep emotions expressed by users
-- **Task 2**: Emotional Trajectory Summary - Accurately identify and concisely summarize users' emotional changes throughout multi-turn conversations
-- **Task 3**: Comprehensive Understanding and Insight - Evaluate whether models can synthesize all conversation information to provide profound explanations
-- **Task 4**: Multimodal Empathy Assessment - Assess textual and audio empathy as well as naturalness
-- **Task 5**: Emotional Voice Synthesis - Generate natural speech with specified emotions
+- **Task 1**: Emotion Recognition - Identify both surface and deep emotions expressed by users.
+- **Task 2**: Emotional Trajectory Summary - Accurately identify and concisely summarize users' emotional changes throughout multi-turn conversations.
+- **Task 3**: Comprehensive Understanding and Insight - Evaluate whether models can synthesize all conversation information to provide profound explanations.
+- **Task 4**: Multimodal Empathy Assessment - Assess textual and audio empathy as well as naturalness.
+- **Task 5**: Emotional Voice Synthesis - Generate natural speech with specified emotions.
 
 Among them, task 1 and task 5 are not included in the evaluation ranking and no validation sets are set for them.
 
