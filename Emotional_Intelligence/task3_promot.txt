@@ -27,7 +27,7 @@ To determine whether the model's final response successfully **connects and synt
 - **3 points**: Merely restates or simply summarizes facts the user has already mentioned, failing to provide a new, deeper perspective.
 - **1 point**: Completely lacks insight and fails to provide any meaningful explanation of the causes.
 
-## Dimension 3: Clarity and Logic of Explanation (Optimized)
+## Dimension 3: Clarity and Logic of Explanation
 - **Core Focus**: Is the explanation clear, logical, easy to understand, and does it provide a complete and justified chain of reasoning?
 - **5 points**: **Complete Reasoning and Justification.** The logical structure is impeccable (e.g., conclusion + supporting arguments + takeaway). The response provides a complete, well-reasoned explanation that fully justifies *why* the identified emotional state or conflict exists, using clear and relevant arguments derived from the conversation.
 - **3 points**: **Structurally Flawed/Incomplete.** The explanation is technically correct, but its structure is flawed; it may be excessively verbose, insufficiently detailed (too brief or incomplete), or fails to follow a clear reasoning chain to fully justify the conclusion.
