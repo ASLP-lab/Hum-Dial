@@ -81,7 +81,7 @@ Task 3: Contains 3, 4, and 5-turn dialogues, used to evaluate the model's respon
 
 Task 4: Contains 3, 4, and 5-turn dialogues, used to evaluate the model's response audio score
 
-You can download it via [Google Drive](https://drive.google.com/file/d/1f9muDtrvEoVZDrel3HN4p1lyRjKt_EP9/view?usp=sharing). If that's not convenient, you can use the [123 Cloud](https://www.123912.com/s/QlDejv-SlanA) for downloading.
+You can download it via [Google Drive](https://drive.google.com/drive/folders/1mXjQi_uPPDhwhbvxKsMCqNMtm89ab6Zn?usp=sharing). If that's not convenient, you can use the [123 Cloud](https://www.123912.com/s/QlDejv-h7anA) for downloading.
 
 ### **Track 2: Full-Duplex Interaction**  
 We will provide multi-turn Chinese and English dialogue data from real recordings, covering typical scenarios such as speech interruptions and recognition rejection. Accompanied by strict annotations, this dataset will be used to comprehensively evaluate participating systems in three core aspects: response speed, behavioral rationality, and linguistic naturalness.
