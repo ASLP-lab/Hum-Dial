@@ -55,25 +55,20 @@ We release a development set, including Task 1, Task 2, Task 3, and Task 4 (sele
 
 dev/<br>
 &ensp;&ensp;zh/<br>
-&ensp;&ensp;&ensp;&ensp;task1/<br>
 &ensp;&ensp;&ensp;&ensp;task2/<br>
 &ensp;&ensp;&ensp;&ensp;task3/<br>
 &ensp;&ensp;&ensp;&ensp;task4/<br>
-&ensp;&ensp;&ensp;&ensp;task1.jsonl<br>
 &ensp;&ensp;&ensp;&ensp;task2.jsonl<br>
 &ensp;&ensp;&ensp;&ensp;task3.jsonl<br>
 &ensp;&ensp;&ensp;&ensp;task4.jsonl<br>
 &ensp;&ensp;en/<br>
-&ensp;&ensp;&ensp;&ensp;task1/<br>
 &ensp;&ensp;&ensp;&ensp;task2/<br>
 &ensp;&ensp;&ensp;&ensp;task3/<br>
 &ensp;&ensp;&ensp;&ensp;task4/<br>
-&ensp;&ensp;&ensp;&ensp;task1.jsonl<br>
 &ensp;&ensp;&ensp;&ensp;task2.jsonl<br>
 &ensp;&ensp;&ensp;&ensp;task3.jsonl<br>
 &ensp;&ensp;&ensp;&ensp;task4.jsonl<br>
 
-Task 1: 1-turn dialogues, judging users' emotional status, not participating in ranking calculation
 
 Task 2: Contains 3, 4, and 5-turn dialogues, used to evaluate the model's response text score
 
