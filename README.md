@@ -150,8 +150,8 @@ For **interruption** scenarios, we evaluate the response rate (corresponding to 
 For **rejection** scenarios, we measure the rejection rate (corresponding to the **RESUME** score in Full-Duplex-Bench) and the **early interrupt rate**, assessing the model’s ability to correctly ignore backchannels, incomplete utterances caused by pauses, background or external speech, and conversations directed at others. Additionally, we introduce **first response delay** to evaluate the overall responsiveness of the model.
 
 ### Dataset
-
 1. Train Set
+
 Our training set covers both interruption and rejection scenarios, comprising over 107 hours of real human recordings in both Chinese and English, featuring more than 100 speakers. The data structure is as follows:
 
 train/<br>
@@ -183,6 +183,7 @@ train/<br>
 &ensp;&ensp;&ensp;&ensp;wait/<br>
 
 2. Dev Set
+
 We release a development set covering two major scenarios—**interruption** and **rejection**, each consisting of nine sub-tasks. Each sub-task contains 200 test samples (100 in Chinese and 100 in English). The data structure is as follows:
 
 dev/<br>
