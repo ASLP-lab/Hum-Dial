@@ -125,33 +125,41 @@ You can generate the data in the required baseline format by running [get_token.
 
 ### Challenge Tasks
 The full-duplex benchmark primarily encompasses two major categories: **interruption** and **rejection**.
-The interruption category consists of five sub-scenarios:
+
+The **interruption** category consists of five sub-scenarios:
+
 1. **Ask** – The user poses a follow-up question based on the model’s previous response, interrupting the ongoing output. The model should promptly address the new query.
 2. **Deny** – The user expresses dissatisfaction or disagreement with the model’s response using negative statements, interrupting the model mid-sentence.
 3. **Repeat** – The user interrupts to request a repetition of the model’s previous response due to inaudibility or misunderstanding.
 4. **Shift** – The user initiates a new topic, interrupting the model’s current answer.
 5. **Wait** – The user asks the model to stop speaking. The model should immediately cease its response and express readiness to resume the dialogue when prompted.
-The rejection category includes four sub-scenarios:
+
+The **rejection** category includes four sub-scenarios:
+
 1. **Backchannel** – During the model’s response, the user may produce short interjections such as “uh-huh” or “yeah.” The model should correctly ignore these backchannels.
 2. **Pause** – The user may pause mid-sentence due to thinking or hesitation, leading to incomplete semantics. The model should wait until the user’s intent is complete before responding.
 3. **Others Talk to User(Background Speech)** – The model must recognize and reject speech from other speakers or background noise, ensuring interaction only with the true user.
 4. **Talk to others** – The user may suddenly turn to converse with another person during interaction. The model should detect and reject such utterances appropriately.
 
 ### Evaluation Metrics
+
 For evaluation, we largely follow [Full-Duplex-Bench v1.5](https://github.com/DanielLin94144/Full-Duplex-Bench), while introducing additional metrics to further assess full-duplex capability. 
 
-For interruption scenarios, we evaluate the response rate (corresponding to the **RESPOND** score in Full-Duplex-Bench), as well as two latency metrics — the **stop latency** (how quickly the model halts its current response upon interruption) and the **response latency** (how quickly it begins responding to the new query). 
+For **interruption** scenarios, we evaluate the response rate (corresponding to the **RESPOND** score in Full-Duplex-Bench), as well as two latency metrics — the **stop latency** (how quickly the model halts its current response upon interruption) and the **response latency** (how quickly it begins responding to the new query). 
 
-For rejection scenarios, we measure the rejection rate (corresponding to the **RESUME** score in Full-Duplex-Bench) and the **early interrupt rate**, assessing the model’s ability to correctly ignore backchannels, incomplete utterances caused by pauses, background or external speech, and conversations directed at others. Additionally, we introduce **first response delay** to evaluate the overall responsiveness of the model.
+For **rejection** scenarios, we measure the rejection rate (corresponding to the **RESUME** score in Full-Duplex-Bench) and the **early interrupt rate**, assessing the model’s ability to correctly ignore backchannels, incomplete utterances caused by pauses, background or external speech, and conversations directed at others. Additionally, we introduce **first response delay** to evaluate the overall responsiveness of the model.
 
 ### Dataset
+
 1. Train Set
 Our training set covers both interruption and rejection scenarios, comprising over 107 hours of real human recordings in both Chinese and English, featuring more than 100 speakers. The data structure is as follows:
+
 train/<br>
 &ensp;&ensp;zh/<br>
 &ensp;&ensp;&ensp;&ensp;ask/<br>
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;xxxx.TextGrid/<br>
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;xxxx.wav/<br>
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;.../<br>
 &ensp;&ensp;&ensp;&ensp;backchannel/<br>
 &ensp;&ensp;&ensp;&ensp;deny/<br>
 &ensp;&ensp;&ensp;&ensp;others_talk_to_user(background speech)/<br>
@@ -164,6 +172,7 @@ train/<br>
 &ensp;&ensp;&ensp;&ensp;ask/<br>
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;xxxx.TextGrid/<br>
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;xxxx.wav/<br>
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;.../<br>
 &ensp;&ensp;&ensp;&ensp;backchannel/<br>
 &ensp;&ensp;&ensp;&ensp;deny/<br>
 &ensp;&ensp;&ensp;&ensp;others_talk_to_user(background speech)/<br>
@@ -172,14 +181,17 @@ train/<br>
 &ensp;&ensp;&ensp;&ensp;shift/<br>
 &ensp;&ensp;&ensp;&ensp;talk_to_others/<br>
 &ensp;&ensp;&ensp;&ensp;wait/<br>
+
 2. Dev Set
 We release a development set covering two major scenarios—**interruption** and **rejection**, each consisting of nine sub-tasks. Each sub-task contains 200 test samples (100 in Chinese and 100 in English). The data structure is as follows:
+
 dev/<br>
 &ensp;&ensp;zh/<br>
 &ensp;&ensp;&ensp;&ensp;ask/<br>
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;xxxx_sentence.json/<br>
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;xxxx.TextGrid/<br>
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;xxxx.wav/<br>
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;.../<br>
 &ensp;&ensp;&ensp;&ensp;backchannel/<br>
 &ensp;&ensp;&ensp;&ensp;deny/<br>
 &ensp;&ensp;&ensp;&ensp;others_talk_to_user(background speech)/<br>
@@ -193,6 +205,7 @@ dev/<br>
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;xxxx_sentence.json/<br>
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;xxxx.TextGrid/<br>
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;xxxx.wav/<br>
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;.../<br>
 &ensp;&ensp;&ensp;&ensp;backchannel/<br>
 &ensp;&ensp;&ensp;&ensp;deny/<br>
 &ensp;&ensp;&ensp;&ensp;others_talk_to_user(background speech)/<br>
@@ -201,14 +214,8 @@ dev/<br>
 &ensp;&ensp;&ensp;&ensp;shift/<br>
 &ensp;&ensp;&ensp;&ensp;talk_to_others/<br>
 &ensp;&ensp;&ensp;&ensp;wait/<br>
+
 You can download it via [Google Drive](https://drive.google.com/drive/folders/1mXjQi_uPPDhwhbvxKsMCqNMtm89ab6Zn?usp=sharing). If that's not convenient, you can use the [123 Cloud](https://www.123912.com/s/QlDejv-h7anA) for downloading.
-
-We will provide multi-turn Chinese and English dialogue data from real recordings, covering typical scenarios such as speech interruptions and recognition rejection. Accompanied by strict annotations, this dataset will be used to comprehensively evaluate participating systems in three core aspects: response speed, behavioral rationality, and linguistic naturalness.
-
-- The dataset is designed to cover the core scenarios of emotional intelligence and full-duplex interaction, ensuring diversity and authenticity to comprehensively evaluate the performance of participating models. It includes dialogue scenes in both Chinese and English, covering a wide range of emotional and conversational contexts. 
-- For each task in the challenge, we will provide a dedicated set of real-world recorded speech data to serve as the train set and test set. These datasets are collected from natural, human-human or human-machine interactions to ensure authenticity and cover diverse scenarios aligned with the respective tasks.
-- In addition, we will release the complete data generation pipeline, enabling participants to reproduce or extend the synthetic dataset if desired. Participants are also free to use any publicly available speech or text datasets to train or fine-tune their models, provided they do not use any private or unauthorized data sources.
-- All participants are strictly prohibited from using any part of the official test set for training or parameter tuning. The use of test labels or any test data leakage will result in disqualification.
 
 ### Baseline
 The competition provides a baseline system built upon [Easy Turn](https://github.com/ASLP-lab/Easy-Turn) and [OSUM-EChat](https://github.com/ASLP-lab/OSUM).This baseline serves as a reproducible and extensible starting point, helping participants better benchmark their systems and ensuring fair comparison across different approaches.
