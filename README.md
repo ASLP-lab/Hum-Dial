@@ -166,7 +166,6 @@ train/<br>
 &ensp;&ensp;&ensp;&ensp;pause/<br>
 &ensp;&ensp;&ensp;&ensp;repeat/<br>
 &ensp;&ensp;&ensp;&ensp;shift/<br>
-&ensp;&ensp;&ensp;&ensp;talk_to_others/<br>
 &ensp;&ensp;&ensp;&ensp;wait/<br>
 &ensp;&ensp;en/<br>
 &ensp;&ensp;&ensp;&ensp;ask/<br>
@@ -179,7 +178,6 @@ train/<br>
 &ensp;&ensp;&ensp;&ensp;pause/<br>
 &ensp;&ensp;&ensp;&ensp;repeat/<br>
 &ensp;&ensp;&ensp;&ensp;shift/<br>
-&ensp;&ensp;&ensp;&ensp;talk_to_others/<br>
 &ensp;&ensp;&ensp;&ensp;wait/<br>
 
 2. Dev Set
