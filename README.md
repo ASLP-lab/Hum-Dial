@@ -102,9 +102,11 @@ The full-duplex benchmark primarily encompasses two major Scenarios: **interrupt
 
 For evaluation, we largely follow [Full-Duplex-Bench v1.5](https://github.com/DanielLin94144/Full-Duplex-Bench), while introducing additional metrics to further assess full-duplex capability. 
 
-For **interruption** scenarios, we evaluate the response rate (corresponding to the **RESPOND** score in [Full-Duplex-Bench v1.5](https://github.com/DanielLin94144/Full-Duplex-Bench)), as well as two latency metrics in [Full-Duplex-Bench v1.5](https://github.com/DanielLin94144/Full-Duplex-Bench) — the **stop latency** (how quickly the model halts its current response upon interruption) and the **response latency** (how quickly it begins responding to the new query). 
+For **interruption** scenarios, we evaluate the **response rate** (corresponding to the RESPOND score in [Full-Duplex-Bench v1.5](https://github.com/DanielLin94144/Full-Duplex-Bench)) to assess the model’s responsiveness to user interruptions, as well as two latency metrics defined in Full-Duplex-Bench v1.5 — the **stop latency** (how quickly the model halts its current response upon interruption) and the **response latency** (how quickly it begins responding to the new query).
 
-For **rejection** scenarios, we measure the rejection rate (corresponding to the **RESUME** score in [Full-Duplex-Bench v1.5](https://github.com/DanielLin94144/Full-Duplex-Bench)) and the **early interrupt rate**, assessing the model’s ability to correctly ignore backchannels, incomplete utterances caused by pauses, background or external speech, and conversations directed at others. Additionally, we introduce **first response delay** to evaluate the overall responsiveness of the model.
+For **rejection** scenarios, we evaluate the **rejection rate**, which is derived from both the **RESUME score** in [Full-Duplex-Bench v1.5](https://github.com/DanielLin94144/Full-Duplex-Bench) and the proportion of successful rejections calculated according to the temporal order of timestamps. This metric assesses the model’s ability to correctly ignore backchannels, incomplete utterances caused by pauses, background or external speech, and speech directed at others. 
+
+Additionally, we introduce **first response delay** to evaluate the overall responsiveness of the model.
 
 
 ### Dataset
