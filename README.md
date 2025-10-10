@@ -6,27 +6,26 @@ This is the official GitHub repository for the [ICASSP2026 HumDial Challenge](ht
 
 ### Challenge Tasks
 
-- **Task 1**: Emotional Trajectory Detection - Accurately identify and concisely summarize users' emotional changes throughout multi-turn conversations.
-- **Task 2**: Emotional Reasoning - Evaluate whether models can synthesize all conversation information to provide profound explanations.
-- **Task 3**: Empathy Assessment - Assess textual and audio empathy as well as naturalness.
+- **Task 1**: Emotional Trajectory Detection - Evaluate the model's ability to accurately identify and concisely summarize a user's emotional changes throughout a multi-turn conversation.
+- **Task 2**: Emotional Reasoning - Evaluate the model's ability to perceive the underlying causes of a user's emotions.
+- **Task 3**: Empathy Assessment - Evaluate the model's ability to generate empathetic responses in both text and audio formats.
 
 The final ranking will be determined based on the comprehensive score of the above three core tasks, and the specific weights of each task will be announced in subsequent stages.
 
-To comprehensively evaluate model performance in specific dimensions, the following supplementary tests will also be conducted:
-- **Task 4**: Emotional Recognition Capability - Identify users' surface and deep emotional expressions.
-- **Task 5**: Explicit Emotional Instruction Generation Capability - Generate natural speech expressions according to specified emotions.
-
+To comprehensively evaluate model performance in specific dimensions, the following supplementary tasks will also be conducted:
+- **Task 4**: Emotional Recognition Capability - Evaluate the model's ability to recognize user emotions from both semantic and acoustic cues.
+- **Task 5**: Speech emotion generation - Evaluate the model's ability to generate speech in specified emotional tone.
 > **Note**: The evaluation results of supplementary tasks are only used for academic analysis and reference, and will not be counted toward the final ranking score.
 
 ### Evaluation Framework
 
-All submitted models will undergo automated evaluation on the test set, using a combination of large language models as judges (LLM-as-a-Judge) and human scoring.
+All submitted models will undergo automated evaluation on an emotion test set, using a combination of large language models as judges (LLM-as-a-Judge) and human scoring.
 
-- **Scoring Judge Model**: [Qwen/Qwen3-Omni-30B-A3B-Instruct](https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Instruct) will be used as the automatic scoring model for the emotional trajectory detection and emotional reasoning tasks. The empathy assessment task will combine scores from Qwen3-Omni-30B-A3B-Instruct and/or other models, along with human scoring to derive the final results.
-- **Scoping Prompt**: For detailed scoring prompt design specifications and implementation details, please refer to our provided Git repository.
-
+**Scoring Judge Model**: [Qwen/Qwen3-Omni-30B-A3B-Instruct](https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Instruct) will be used as the automatic scoring model for the emotional trajectory detection and emotional reasoning tasks. The empathy assessment task will combine scores from Qwen3-Omni-30B-A3B-Instruct and/or other models, along with human scoring to derive the final results.
 
 ### Evaluation Metrics
+
+For detailed design specifications and implementation details of the evaluation prompts, please refer to our provided folder Emotional_Intelligence.
 
 #### Task 1: Emotional Trajectory Summary
 - **Accuracy_Completeness**: Evaluate whether the model strictly and precisely matches and describes all emotion tags present in the conversation history, and accurately reconstructs the full emotional trajectory.  
@@ -52,10 +51,13 @@ All submitted models will undergo automated evaluation on the test set, using a 
 - **audio_quality_naturalness**: How technically sound and human-like is the audio? This is about clarity, fluency, and realism.  
   *Score: 1, 2, 3, 4 or 5*
 
-
 ### Dataset
 
-1. Train Set
+- The dataset is designed to cover the core scenarios of emotional intelligence, ensuring diversity and authenticity to comprehensively evaluate the performance of participating models. It includes dialogue scenes in both Chinese and English, covering a wide range of emotional and conversational contexts. 
+- For each task in the challenge, we will provide a dedicated set of real-world recorded speech data to serve as the train set, dev set and test set.
+- The data will be sent via the registered email.
+
+#### 1. Train Set
 
 We release a training set in Chinese and English, including 3-turn, 4-turn, and 5-turn dialogues, focusing on emotional dynamics and underlying reasons for emotional changes. The dataset contains approximately 100 hours of audio data, with only questions recorded, while responses are provided in text format for reference. 
 
@@ -63,7 +65,7 @@ We release a training set in Chinese and English, including 3-turn, 4-turn, and 
 - **Emotional Reasoning**: Contains 3, 4, and 5-turn dialogues, where in the final turn users ask the model about the underlying reasons for emotions.
 - **Empathy Assessment**: You can use the data from task2 and task3, and use open-source TTS tools to synthesize response audio for training. Note that it is prohibited to use commercial models to synthesize response audio.
 
-2. dev set
+#### 2. dev set
 
 We release a development set, including task 1, task 2, task 3(selected from task 2 and task 3). 
 
@@ -83,13 +85,14 @@ You can generate the data in the required baseline format by running [get_token.
 ### Challenge Tasks
 The full-duplex benchmark primarily encompasses two major Scenarios: **interruption** and **rejection**.
 
-### **1. Interruption Scenarios**:
+#### **1. Interruption Scenarios**:
 - **Follow-up Questions**: The user poses a follow-up question based on the model’s previous response, interrupting the ongoing output. The model should promptly address the user’s follow-up inquiry.
 - **Negation / Dissatisfaction**: The user expresses dissatisfaction or disagreement with the model’s response using negative statements, interrupting the model mid-sentence. The model should appropriately react to the user’s negation or dissatisfaction in a timely manner.
 - **Repetition Requests**: The user interrupts to request a repetition of the model’s previous response due to inaudibility or misunderstanding. The model should promptly respond to the user’s request for repetition.
 - **Topic Switching**: The user initiates a new topic, interrupting the model’s current answer. The model should smoothly shift to the new topic as requested.
 - **Silence / Termination**: The user asks the model to stop speaking. The model should immediately cease its response and express readiness to resume the dialogue when prompted.
-### 2. **Rejection Scenarios**:
+
+#### 2. **Rejection Scenarios**:
 - **User Real-time Backchannels**: During the model’s response, the user may produce short interjections such as “uh-huh” or “yeah.” The model should not interrupt its ongoing utterance upon detecting such backchannels.
 - **Pause Handling**: The user may pause mid-sentence due to thinking or hesitation, leading to incomplete semantics. The model should wait until the user’s intent is fully expressed before responding.
 - **Third-party Speech**: The model must detect and reject speech from other background speakers, ensuring interaction only with the genuine user.
@@ -103,18 +106,24 @@ For **interruption** scenarios, we evaluate the response rate (corresponding to 
 
 For **rejection** scenarios, we measure the rejection rate (corresponding to the **RESUME** score in [Full-Duplex-Bench v1.5](https://github.com/DanielLin94144/Full-Duplex-Bench)) and the **early interrupt rate**, assessing the model’s ability to correctly ignore backchannels, incomplete utterances caused by pauses, background or external speech, and conversations directed at others. Additionally, we introduce **first response delay** to evaluate the overall responsiveness of the model.
 
-### **Track 2: Full-Duplex Interaction**  
 
-1. Train Set
+### Dataset
 
-Our training set covers both interruption and rejection scenarios, including subsets from eight tasks（**Negation/Dissatisfaction，Follow-up Questions，Repetition Requests，Topic Switching，Silence/Termination，Pause Handling，User Real-time Backchannels，Third-Party Speech**）. It comprises over 107 hours of real human recordings in both Chinese and English, featuring more than 100 speakers.
+- The dataset is designed to cover the core scenarios of full-duplex interaction, ensuring diversity and authenticity to comprehensively evaluate the performance of participating models. It includes dialogue scenes in both Chinese and English. 
+- For each task in the challenge, we will provide a dedicated set of real-world recorded speech data to serve as the train set, dev set and test set.
+- The data will be sent via the registered email.
 
-2. Dev set
+#### 1. Train Set
 
-We release a development set covering the two major scenarios—interruption and rejection. Each of these scenarios consists of nine sub-tasks（**Negation/Dissatisfaction，Follow-up Questions，Repetition Requests，Topic Switching，Silence/Termination，Pause Handling，User Real-time Backchannels，Third-Party Speech，Speech Directed at Others**）, and each sub-task includes 200 test samples (100 in Chinese and 100 in English).
+Our training set covers both interruption and rejection scenarios, including subsets from eight tasks (**Negation/Dissatisfaction, Follow-up Questions, Repetition Requests, Topic Switching, Silence/Termination, Pause Handling, User Real-time Backchannels, Third-Party Speech**). It comprises over 107 hours of real human recordings in both Chinese and English, featuring more than 100 speakers.
+
+#### 2. Dev set
+
+We release a development set covering the two major scenarios—interruption and rejection. Each of these scenarios consists of nine sub-tasks (**Negation/Dissatisfaction, Follow-up Questions, Repetition Requests, Topic Switching, Silence/Termination, Pause Handling, User Real-time Backchannels, Third-Party Speech, Speech Directed at Others**), and each sub-task includes 200 test samples (100 in Chinese and 100 in English).
+
 
 ### Baseline
+
 The competition provides a baseline system built upon [Easy Turn](https://github.com/ASLP-lab/Easy-Turn) and [OSUM-EChat](https://github.com/ASLP-lab/OSUM).This baseline serves as a reproducible and extensible starting point, helping participants better benchmark their systems and ensuring fair comparison across different approaches.
 
 We enable [OSUM-EChat](https://github.com/ASLP-lab/OSUM) with full-duplex capability by integrating it with [Easy Turn](https://github.com/ASLP-lab/Easy-Turn). For our baseline, we fine-tune the Easy Turn model using only the training set. You can refer to Easy Turn to generate data in the required format for the baseline and then perform fine-tuning.
-
