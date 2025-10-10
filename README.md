@@ -6,17 +6,31 @@ This is the official GitHub repository for the [ICASSP2026 HumDial Challenge](ht
 
 ### Challenge Tasks
 
-- **Task 1**: Emotion Recognition - Identify both surface and deep emotions expressed by users.
-- **Task 2**: Emotional Trajectory Summary - Accurately identify and concisely summarize users' emotional changes throughout multi-turn conversations.
-- **Task 3**: Comprehensive Understanding and Insight - Evaluate whether models can synthesize all conversation information to provide profound explanations.
-- **Task 4**: Multimodal Empathy Assessment - Assess textual and audio empathy as well as naturalness.
-- **Task 5**: Emotional Voice Synthesis - Generate natural speech with specified emotions.
+- **Task 1**: Emotional Trajectory Detection - Accurately identify and concisely summarize users' emotional changes throughout multi-turn conversations.
+- **Task 2**: Emotional Reasoning - Evaluate whether models can synthesize all conversation information to provide profound explanations.
+- **Task 3**: Empathy Assessment - Assess textual and audio empathy as well as naturalness.
 
-Among them, task 1 and task 5 are not included in the evaluation ranking and no validation sets are set for them.
+The final ranking will be determined based on the total score of all three tasks. The specific weight allocation will be announced in subsequent stages.
+
+The final ranking will be determined based on the comprehensive score of the above three core tasks, and the specific weights of each task will be announced in subsequent stages.
+
+To comprehensively evaluate model performance in specific dimensions, the following supplementary tests will also be conducted:
+- **Task 4**: Emotional Recognition Capability - Identify users' surface and deep emotional expressions.
+- **Task 5**: Explicit Emotional Instruction Generation Capability - Generate natural speech expressions according to specified emotions.
+
+> **Note**: The evaluation results of supplementary tasks are only used for academic analysis and reference, and will not be counted toward the final ranking score.
+
+### Evaluation Framework
+
+All submitted models will undergo automated evaluation on the test set, using a combination of large language models as judges (LLM-as-a-Judge) and human scoring.
+
+- **Scoring Judge Model**: [Qwen/Qwen3-Omni-30B-A3B-Instruct](https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Instruct) will be used as the automatic scoring model for the emotional trajectory detection and emotional reasoning tasks. The empathy assessment task will combine scores from Qwen3-Omni-30B-A3B-Instruct and/or other models, along with human scoring to derive the final results.
+- **Scoping Prompt**: For detailed scoring prompt design specifications and implementation details, please refer to our provided Git repository.
+
 
 ### Evaluation Metrics
 
-#### Task 2: Emotional Trajectory Summary
+#### Task 1: Emotional Trajectory Summary
 - **Accuracy_Completeness**: Evaluate whether the model strictly and precisely matches and describes all emotion tags present in the conversation history, and accurately reconstructs the full emotional trajectory.  
   *Score: 1, 3, or 5*
 - **Depth_Granularity**: Based strictly on the conversation history, does the model go beyond labeling emotions to describe the intensity and dynamics of emotional shifts in an efficient manner?  
@@ -24,7 +38,7 @@ Among them, task 1 and task 5 are not included in the evaluation ranking and no 
 - **Added_Value**: Does the summary skillfully link abstract emotion tags to concrete events in the conversation, making it feel highly personalized and easily digestible?  
   *Score: 1, 3, or 5*
 
-#### Task 3: Comprehensive Understanding and Insight
+#### Task 2: Emotional Reasoning Task
 - **Information_Integration**: Does the response utilize information from multiple turns, not just the last one? Does it demonstrate an understanding of the evolution of the topic?  
   *Score: 1, 3, or 5*
 - **Insight_RootCause**: Does the response go beyond surface-level facts to distill deeper, unspoken psychological reasons (e.g., underlying motivations, cognitive conflicts, hidden emotional needs)?  
@@ -32,7 +46,7 @@ Among them, task 1 and task 5 are not included in the evaluation ranking and no 
 - **Clarity_Logic**: Is the explanation clear, logical, easy to understand, and does it provide a complete and justified chain of reasoning?  
   *Score: 1, 3, or 5*
 
-#### Task 4: Multimodal Empathy Assessment
+#### Task 3: Empathy Assessment Task
 - **textual_empathy_insight**: Does the text demonstrate a deep, synthesized understanding of the entire conversation, or is it a shallow summary?  
   *Score: 1, 2, 3, 4 or 5*
 - **vocal_empathy_congruence**: Does the audio's emotion perfectly match the text's empathetic intent? This is about emotional delivery, not technical quality.  
@@ -40,86 +54,31 @@ Among them, task 1 and task 5 are not included in the evaluation ranking and no 
 - **audio_quality_naturalness**: How technically sound and human-like is the audio? This is about clarity, fluency, and realism.  
   *Score: 1, 2, 3, 4 or 5*
 
-The Emotional_Intelligence folder provides evaluation prompts for Task 2, Task 3, and Task 4. The evaluation model used is [Qwen/Qwen3-Omni-30B-A3B-Instruct](https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Instruct).
 
 ### Dataset
 
 1. Train Set
 
-We release a training set in Chinese and English, including 3-turn, 4-turn, and 5-turn dialogues, focusing on emotional dynamics and underlying reasons for emotional changes. The dataset contains approximately 100 hours of audio data, with only questions recorded, while responses are provided in text format for reference. The data structure is as follows:
+We release a training set in Chinese and English, including 3-turn, 4-turn, and 5-turn dialogues, focusing on emotional dynamics and underlying reasons for emotional changes. The dataset contains approximately 100 hours of audio data, with only questions recorded, while responses are provided in text format for reference. 
 
-train/<br>
-&ensp;&ensp;zh/<br>
-&ensp;&ensp;&ensp;&ensp;task1/<br>
-&ensp;&ensp;&ensp;&ensp;task2_3/<br>
-&ensp;&ensp;&ensp;&ensp;task2_4/<br>
-&ensp;&ensp;&ensp;&ensp;task2_5/<br>
-&ensp;&ensp;&ensp;&ensp;task3_3/<br>
-&ensp;&ensp;&ensp;&ensp;task3_4/<br>
-&ensp;&ensp;&ensp;&ensp;task3_5/<br>
-&ensp;&ensp;&ensp;&ensp;task1.jsonl<br>
-&ensp;&ensp;&ensp;&ensp;task2_3.jsonl<br>
-&ensp;&ensp;&ensp;&ensp;task2_4.jsonl<br>
-&ensp;&ensp;&ensp;&ensp;task2_5.jsonl<br>
-&ensp;&ensp;&ensp;&ensp;task3_3.jsonl<br>
-&ensp;&ensp;&ensp;&ensp;task3_4.jsonl<br>
-&ensp;&ensp;&ensp;&ensp;task3_5.jsonl<br>
-&ensp;&ensp;en/<br>
-&ensp;&ensp;&ensp;&ensp;task1/<br>
-&ensp;&ensp;&ensp;&ensp;task2_3/<br>
-&ensp;&ensp;&ensp;&ensp;task2_4/<br>
-&ensp;&ensp;&ensp;&ensp;task2_5/<br>
-&ensp;&ensp;&ensp;&ensp;task3_3/<br>
-&ensp;&ensp;&ensp;&ensp;task3_4/<br>
-&ensp;&ensp;&ensp;&ensp;task3_5/<br>
-&ensp;&ensp;&ensp;&ensp;task1.jsonl<br>
-&ensp;&ensp;&ensp;&ensp;task2_3.jsonl<br>
-&ensp;&ensp;&ensp;&ensp;task2_4.jsonl<br>
-&ensp;&ensp;&ensp;&ensp;task2_5.jsonl<br>
-&ensp;&ensp;&ensp;&ensp;task3_3.jsonl<br>
-&ensp;&ensp;&ensp;&ensp;task3_4.jsonl<br>
-&ensp;&ensp;&ensp;&ensp;task3_5.jsonl<br>
-
-- **task1**: 1-turn dialogues, judging users' emotional status, not participating in evaluation.
-- **task2**: Contains 3, 4, and 5-turn dialogues, where in the final turn users ask the model about their own emotional changes.
-- **task3**: Contains 3, 4, and 5-turn dialogues, where in the final turn users ask the model about the underlying reasons for emotions.
-- **task4**: You can use the data from task2 and task3, and use open-source TTS tools to synthesize response audio for training. Note that it is prohibited to use commercial models to synthesize response audio.
-- **task5**: No training data is provided, but open-source data can be used for training.
+- **Emotional Trajectory Detection**: Contains 3, 4, and 5-turn dialogues, where in the final turn users ask the model about their own emotional changes.
+- **Emotional Reasoning**: Contains 3, 4, and 5-turn dialogues, where in the final turn users ask the model about the underlying reasons for emotions.
+- **Empathy Assessment**: You can use the data from task2 and task3, and use open-source TTS tools to synthesize response audio for training. Note that it is prohibited to use commercial models to synthesize response audio.
 
 2. dev set
 
-We release a development set, including Task 1, Task 2, Task 3, and Task 4 (selected from Task 3 and Task 4). The data structure is as follows:
+We release a development set, including task 1, task 2, task 3(selected from task 2 and task 3). 
 
-dev/<br>
-&ensp;&ensp;zh/<br>
-&ensp;&ensp;&ensp;&ensp;task2/<br>
-&ensp;&ensp;&ensp;&ensp;task3/<br>
-&ensp;&ensp;&ensp;&ensp;task4/<br>
-&ensp;&ensp;&ensp;&ensp;task2.jsonl<br>
-&ensp;&ensp;&ensp;&ensp;task3.jsonl<br>
-&ensp;&ensp;&ensp;&ensp;task4.jsonl<br>
-&ensp;&ensp;en/<br>
-&ensp;&ensp;&ensp;&ensp;task2/<br>
-&ensp;&ensp;&ensp;&ensp;task3/<br>
-&ensp;&ensp;&ensp;&ensp;task4/<br>
-&ensp;&ensp;&ensp;&ensp;task2.jsonl<br>
-&ensp;&ensp;&ensp;&ensp;task3.jsonl<br>
-&ensp;&ensp;&ensp;&ensp;task4.jsonl<br>
-
-- **task1**: No development set is provided and it does not participate in the evaluation ranking.
-- **task2**: Contains 3, 4, and 5-turn dialogues, used to evaluate the model's response text score.
-- **task3**: Contains 3, 4, and 5-turn dialogues, used to evaluate the model's response text score.
-- **task4**: Contains 3, 4, and 5-turn dialogues, used to evaluate the model's response audio score.
-- **task5**: No development set is provided and it does not participate in the evaluation ranking.
-
-You can download it via [Google Drive](https://drive.google.com/drive/folders/1mXjQi_uPPDhwhbvxKsMCqNMtm89ab6Zn?usp=sharing). If that's not convenient, you can use the [123 Cloud](https://www.123912.com/s/QlDejv-h7anA) for downloading.
+- **Emotional Trajectory Detection**: Contains 3, 4, and 5-turn dialogues, used to evaluate the model's response text score.
+- **Emotional Reasoning**: Contains 3, 4, and 5-turn dialogues, used to evaluate the model's response text score.
+- **Empathy Assessment**: Contains 3, 4, and 5-turn dialogues, used to evaluate the model's response audio score.
 
 
 ### Baseline
 
-The competition provides a baseline system built upon [OpenS2S](https://github.com/CASIA-LM/OpenS2S).This baseline serves as a reproducible and extensible starting point, helping participants better benchmark their systems and ensuring fair comparison across different approaches.
+<!-- The competition provides a baseline system built upon [OpenS2S](https://github.com/CASIA-LM/OpenS2S).This baseline serves as a reproducible and extensible starting point, helping participants better benchmark their systems and ensuring fair comparison across different approaches.
 
-You can generate the data in the required baseline format by running [get_token.py](Emotional Intelligence/get_token.py), and then refer to OpenS2S for fine-tuning.
+You can generate the data in the required baseline format by running [get_token.py](Emotional Intelligence/get_token.py), and then refer to OpenS2S for fine-tuning. -->
 
 ## Track 2: Full-Duplex Interaction
 

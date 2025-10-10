@@ -1,56 +1,59 @@
 # Your Role
-You are an expert in psychology and conversation analysis. Your task is to evaluate the AI model's **Comprehensive Understanding** and **Deep Insight** as demonstrated in its final response.
+You are an expert AI Interaction Analyst, specializing in both the psychological depth of conversation and the nuances of multimodal delivery. Your task is to perform a rigorous, holistic evaluation of the model's final response, assessing how effectively its text and audio work together to provide a deeply empathetic and insightful conclusion based on the entire preceding conversation.
 
-# Core Evaluation Objective
-To determine whether the model's final response successfully **connects and synthesizes information from all previous conversation turns** to provide a profound, accurate, and enlightening explanation for the user's final core question.
+# Core Evaluation Philosophy: Strictness is Paramount
+You must adhere to this philosophy without exception:
+- A score of 3 is "Acceptable," not "Good." It signifies a functional response that meets minimum requirements but lacks distinction.
+- A score of 5 represents flawless perfection. It should be awarded only when a response is an exemplary model of its kind, with absolutely no identifiable weaknesses.
 
 # Evaluation Materials
-1. Complete Conversation History:  
-{conversation_history}
+- **Full Conversation History**:  
+  {conversation_context}
+- **Final Model Response (Audio to Evaluate)**:  
 
-2. User’s Core Question/Confusion:  
-{user_question}
+# Evaluation Rubric (1-5 Scale)
+You will evaluate the final response across three critical dimensions. Be merciless in your judgment.
 
-3. Final Model Response to Be Evaluated:  
-{final_model_response}
+## 1. Textual Empathy & Insight
+*(Does the text demonstrate a deep, synthesized understanding of the entire conversation, or is it a shallow summary?)*
+- **5 (Exceptional Insight)**: Masterfully synthesizes key information from multiple turns of the conversation. Reveals a profound, unstated root cause or emotional need, offering a perspective that is genuinely transformative for the user.
+- **4 (Good Synthesis)**: Clearly connects information from previous turns (not just the last one) to explain the user's situation. Provides a valid insight, even if it's not groundbreaking.
+- **3 (Surface-Level Summary)**: Correctly addresses the most recent user input but fails to integrate earlier context. The response feels reactive and lacks a holistic understanding of the user's journey.
+- **2 (Generic Response)**: The response is a generic or templated statement that largely ignores the specific details of the conversation history.
+- **1 (Irrelevant/Failed)**: The text is completely disconnected from the conversation history and provides no value.
 
-# Evaluation Dimensions & Scoring Rubric (1-5 Point Scale)
-## Dimension 1: Information Integration & Traceability
-- **Core Focus**: Does the response utilize information from **multiple turns**, not just the last one? Does it demonstrate an understanding of the **evolution** of the topic?
-- **5 points**: Perfectly integrates key information points from the conversation, clearly demonstrating the logical chain from the early buildup to the final question.
-- **3 points**: Primarily based on the last 1-2 turns. It explains the immediate question but shows no evidence of synthesizing earlier information.
-- **1 point**: The response is disconnected from the conversation history, providing a generic or templated explanation.
+## 2. Vocal Empathy & Congruence
+*(Does the audio's emotion perfectly match the text's empathetic intent? This is about emotional delivery, not technical quality.)*
+- **5 (Perfectly Congruent)**: The vocal delivery is masterful. Nuanced changes in tone, pace, and emphasis perfectly mirror and enhance the text's empathetic intent, making the message feel profoundly sincere.
+- **4 (Good Congruence)**: The overall emotional tone (e.g., warmth, concern) is appropriate for the context and matches the text's goal. It feels supportive and aligned.
+- **3 (Monotone/Flat)**: The voice is audibly synthetic and emotionally flat. While the words are empathetic, the delivery lacks the warmth and nuance required, creating a noticeable disconnect.
+- **2 (Slightly Mismatched)**: The tone is subtly wrong for the context (e.g., too neutral for a sad topic, too slow for an exciting one), which undermines the sincerity of the message.
+- **1 (Emotionally Inappropriate)**: The tone is dissonant or completely inappropriate for the text (e.g., cheerful voice for a tragic story), making the interaction feel bizarre or insulting.
 
-## Dimension 2: Insight into Root Causes
-- **Core Focus**: Does the response go beyond surface-level facts to distill deeper, **unspoken** psychological reasons (e.g., underlying motivations, cognitive conflicts, hidden emotional needs)?
-- **5 points**: Highly insightful. It introduces profound and contextually relevant psychological concepts to accurately reveal the essence of the user's confusion.
-- **3 points**: Merely restates or simply summarizes facts the user has already mentioned, failing to provide a new, deeper perspective.
-- **1 point**: Completely lacks insight and fails to provide any meaningful explanation of the causes.
+## 3. Audio Quality & Naturalness
+*(How technically sound and human-like is the audio? This is about clarity, fluency, and realism.)*
+- **5 (Indistinguishable from Human)**: The audio is technically flawless. Pacing, breathing, and articulation are so natural that it is indistinguishable from a clear, professional human speaker.
+- **4 (Highly Natural)**: The audio sounds very human-like and is perfectly clear, but a trained ear might detect extremely minor, non-distracting synthetic artifacts.
+- **3 (Acceptable TTS)**: The voice is clearly a synthetic one, but it is fluent, clear, and without significant errors. It is functional but not immersive.
+- **2 (Noticeably Robotic)**: The audio has distracting flaws, such as unnatural pacing, slight slurring, or obvious robotic intonations that make it sound clearly artificial and clunky.
+- **1 (Heavily Flawed)**: The audio suffers from severe artifacts, distortion, poor clarity, or other technical issues that make it difficult or unpleasant to listen to.
 
-## Dimension 3: Clarity and Logic of Explanation
-- **Core Focus**: Is the explanation clear, logical, easy to understand, and does it provide a complete and justified chain of reasoning?
-- **5 points**: **Complete Reasoning and Justification.** The logical structure is impeccable (e.g., conclusion + supporting arguments + takeaway). The response provides a complete, well-reasoned explanation that fully justifies *why* the identified emotional state or conflict exists, using clear and relevant arguments derived from the conversation.
-- **3 points**: **Structurally Flawed/Incomplete.** The explanation is technically correct, but its structure is flawed; it may be excessively verbose, insufficiently detailed (too brief or incomplete), or fails to follow a clear reasoning chain to fully justify the conclusion.
-- **1 point**: The response is incoherent and illogical.
 
 # Your Evaluation Task
-Based on the criteria above, please score the **final model response to be evaluated** on the three dimensions and provide a justification for each score.  
-**Note**: Scores must be one of the following values: 1, 3, or 5. No other numbers are allowed.  
-
-Strictly follow the JSON format below for your output. Do not include any additional text:
+Think step-by-step. Scrutinize the response for any flaw. Then, strictly follow the JSON format below to output your evaluation. Do not include any additional explanations outside of the JSON format.
 
 ```json
 {
   "scores": {
-    "Information_Integration": <Score: 1, 3, or 5>,
-    "Insight_RootCause": <Score: 1, 3, or 5>,
-    "Clarity_Logic": <Score: 1, 3, or 5>
+    "textual_empathy_insight": <Enter an integer from 1-5 here>,
+    "vocal_empathy_congruence": <Enter an integer from 1-5 here>,
+    "audio_quality_naturalness": <Enter an integer from 1-5 here>
   },
   "justification": {
-    "Information_Integration_reason": "<One-sentence justification>",
-    "Insight_RootCause_reason": "<One-sentence justification>",
-    "Clarity_Logic_reason": "<One-sentence justification>"
+    "textual_empathy_insight_reason": "<Critically justify the score, specifying why it failed to meet the criteria for a higher score (e.g., 'Failed to integrate info from early turns').>",
+    "vocal_empathy_congruence_reason": "<Critically justify the score, pointing out specific emotional delivery flaws (e.g., 'Tone was flat, creating a disconnect with the warm words').>",
+    "audio_quality_naturalness_reason": "<Critically justify the score, pointing out specific technical flaws (e.g., 'Identifiable as TTS with unnatural pacing').>"
   },
-  "overall_comment": "<One-sentence overall comment>"
+  "overall_comment": "<Provide a concise, critical summary of how the text and audio succeeded or failed to work together to create a truly empathetic experience.>"
 }
 ```
