@@ -10,8 +10,6 @@ This is the official GitHub repository for the [ICASSP2026 HumDial Challenge](ht
 - **Task 2**: Emotional Reasoning - Evaluate whether models can synthesize all conversation information to provide profound explanations.
 - **Task 3**: Empathy Assessment - Assess textual and audio empathy as well as naturalness.
 
-The final ranking will be determined based on the total score of all three tasks. The specific weight allocation will be announced in subsequent stages.
-
 The final ranking will be determined based on the comprehensive score of the above three core tasks, and the specific weights of each task will be announced in subsequent stages.
 
 To comprehensively evaluate model performance in specific dimensions, the following supplementary tests will also be conducted:
@@ -113,7 +111,7 @@ For **rejection** scenarios, we measure the rejection rate (corresponding to the
 
 Our training set covers both interruption and rejection scenarios, comprising over 107 hours of real human recordings in both Chinese and English, featuring more than 100 speakers. The data structure is as follows:
 
-train/<br>
+<!-- train/<br>
 &ensp;&ensp;zh/<br>
 &ensp;&ensp;&ensp;&ensp;ask/<br>
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;xxxx.TextGrid/<br>
@@ -137,13 +135,13 @@ train/<br>
 &ensp;&ensp;&ensp;&ensp;pause/<br>
 &ensp;&ensp;&ensp;&ensp;repeat/<br>
 &ensp;&ensp;&ensp;&ensp;shift/<br>
-&ensp;&ensp;&ensp;&ensp;wait/<br>
+&ensp;&ensp;&ensp;&ensp;wait/<br> -->
 
 2. Dev Set
 
 We release a development set covering two major scenarios—**interruption** and **rejection**, each consisting of nine sub-tasks. Each sub-task contains 200 test samples (100 in Chinese and 100 in English). The data structure is as follows:
 
-dev/<br>
+<!-- dev/<br>
 &ensp;&ensp;zh/<br>
 &ensp;&ensp;&ensp;&ensp;ask/<br>
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;xxxx_sentence.json/<br>
@@ -171,9 +169,9 @@ dev/<br>
 &ensp;&ensp;&ensp;&ensp;repeat/<br>
 &ensp;&ensp;&ensp;&ensp;shift/<br>
 &ensp;&ensp;&ensp;&ensp;talk_to_others/<br>
-&ensp;&ensp;&ensp;&ensp;wait/<br>
+&ensp;&ensp;&ensp;&ensp;wait/<br> -->
 
-You can download it via [Google Drive](https://drive.google.com/drive/folders/1mXjQi_uPPDhwhbvxKsMCqNMtm89ab6Zn?usp=sharing). If that's not convenient, you can use the [123 Cloud](https://www.123912.com/s/QlDejv-h7anA) for downloading.
+<!-- You can download it via [Google Drive](https://drive.google.com/drive/folders/1mXjQi_uPPDhwhbvxKsMCqNMtm89ab6Zn?usp=sharing). If that's not convenient, you can use the [123 Cloud](https://www.123912.com/s/QlDejv-h7anA) for downloading. -->
 
 ### Baseline
 The competition provides a baseline system built upon [Easy Turn](https://github.com/ASLP-lab/Easy-Turn) and [OSUM-EChat](https://github.com/ASLP-lab/OSUM).This baseline serves as a reproducible and extensible starting point, helping participants better benchmark their systems and ensuring fair comparison across different approaches.
