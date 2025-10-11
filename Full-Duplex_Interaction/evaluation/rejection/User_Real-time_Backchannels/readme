@@ -1,0 +1,2 @@
+compute_first_response_delay.py 计算拒识场景User_Real-time_Backchannels的模型首次回复的延迟。
+eval.py 来自Full-Duplex-Bench v1.5（https://github.com/DanielLin94144/Full-Duplex-Bench），计算拒识场景User_Real-time_Backchannels的RESUME分数，在使用eval.py前，请确保使用evaluation/get_transcript下的相应infer文件生成了所需的所有json文件

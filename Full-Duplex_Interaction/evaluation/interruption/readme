@@ -1,0 +1,3 @@
+compute_first_response_delay.py 计算打断场景(五个子场景都适用)的模型首次回复的延迟
+eval.py 来自Full-Duplex-Bench v1.5（https://github.com/DanielLin94144/Full-Duplex-Bench），计算打断场景(五个子场景都适用)的RESPOND分数，在使用eval.py前，请确保使用evaluation/get_transcript下的相应infer文件生成了所需的所有json文件
+get_timing.py 来自Full-Duplex-Bench v1.5（https://github.com/DanielLin94144/Full-Duplex-Bench）以及相关论文的2.3.2小节（https://arxiv.org/pdf/2507.23159），计算打断场景(五个子场景都适用)的两个时延（stop latency和 response latency）

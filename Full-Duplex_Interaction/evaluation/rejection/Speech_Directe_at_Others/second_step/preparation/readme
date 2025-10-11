@@ -1,0 +1,3 @@
+Speech_Directe_at_Others是一个较难的任务，音频对话有更多轮次，clean_xxxx.wav的生成方式也与前面的场景有所不同。
+clean_wav_Speech_Directed_at_Others.py用于生成在eval.py阶段所需要的clean_xxxx.wav（排除干扰的音频，这里其实是保留用户第二个query，可参考https://drive.google.com/drive/folders/1ReqGkU-oGC1CCm_U9boPqH5jRt0PNJAs）。
+实际上，我已帮助大家全部生成完毕。
