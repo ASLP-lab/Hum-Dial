@@ -1,0 +1,3 @@
+对于peech Directed at Others场景，first step：
+首先使用./evaluation/rejection/Speech_Directed_at_Others/first_step/get_transcript_first下的相应infer文件生成所需的全部json文件。
+然后使用compute_first_response_delay.py计算拒识场景peech_Directed_at_Others的模型首次回复的延迟。

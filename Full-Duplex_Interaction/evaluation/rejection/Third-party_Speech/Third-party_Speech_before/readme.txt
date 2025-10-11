@@ -1,0 +1,3 @@
+针对于Dev set中的Third-party_Speech_before（代表在音频中，他人话语（背景音）位于用户的真实询问之前）
+compute_first_response_delay_before.py 计算拒识场景Third-party_Speech_before的模型首次回复的延迟（针对用户真正的询问）
+由于Full-Duplex-Bench v1.5不支持他人话语位于用户真正的询问之前的场景（也就是不支持Third-party_Speech_before场景），我们使用compute_early_interrupt_rate_before.py计算拒识场景Third-party_Speech_before的rejection_rate。在使用compute_rejection_rate_before.py前，请确保使用evaluation/get_transcript下的相应infer文件生成了所需的所有json文件。

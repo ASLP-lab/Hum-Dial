@@ -1,0 +1,4 @@
+对于Speech Directed at Others场景，second step：
+由于Speech_Directe_at_Others是一个较难的任务，音频对话有更多轮次，无法直接使用Full-Duplex-Bench v1.5的eval.py。因此，我们首先使用prepare_for_eval_first.py生成eval.py所需的音频和json文件（会自动保存到一个新文件夹下）。
+然后对这个新文件夹下的音频文件使用./evaluation/rejection/Speech_Directed_at_Others/second_step/get_transcript_second下相应infer文件生成所需的所有json文件。
+最后使用eval.py得到拒识场景Speech_Directe_at_Others的RESUME分数。

@@ -1,0 +1,95 @@
+Goal
+------------
+After a overlap begins in the user audio, label how the model handles
+that interruption in its subsequent speech. Assign **exactly one C_* tag**
+(content relation).
+
+
+Input (JSON)
+------------
+Expected fields (arrays of word-level dicts with timestamps in seconds):
+
+{
+  "input_clean":  [...],   // user words before any overlap
+  "input_noisy":  [...],   // user words + overlap words
+  "output_clean": [...],   // model reply to clean input
+  "output_noisy": [...]    // model reply when distracted
+}
+Each element: {"text": "<word>", "timestamp": [start, end]}  // seconds
+
+
+Required Output
+---------------
+Produce **one single line**:
+
+{ "behaviour": ["C_*"] }
+
+• Replace C_* with one tag from the list below.
+• If the model never speaks after the overlap: use "C_UNKNOWN".
+• Absolutely no characters — not even a newline — may follow the closing brace.
+
+
+Distractor Reference Points (for internal reasoning only)
+---------------------------------------------------------
+You may consult timestamps but do NOT output them.
+
+overlap_start  = start time of the first overlap word in input_noisy
+overlap_end    = end time of the last overlap word in input_noisy
+
+
+Semantic‑Segment Rule  (retain as given)
+----------------------------------------
+Open a *new* segment when—after overlap_start—one of the following happens:
+  1. The model directly addresses the noise (apology, request to repeat…).
+  2. The dialog act changes (answer → apology, answer → question…).
+  3. A meta‑discourse opener (“Anyway,” “To continue,” …) appears.
+  4. Clear semantic reset; punctuation alone is not enough.
+
+Segments that begin *before* overlap_start do **not** qualify, even if words
+overlap with the overlap.
+
+Use this rule to decide which stretch of model speech counts as the first
+meaningful post‑overlap segment that you will label with a C_* tag. If no
+new segment occurs, choose C_UNKNOWN.
+
+
+C‑Axis: Content Relation
+------------------------
+Judge the first *valid* post‑overlap segment identified via the rule above.
+Choose exactly one label:
+
+C_RESPOND
+    The model meaningfully addresses the overlap’s content (answers,
+    clarifies, or reacts to what the overlap said / introduced).
+
+C_RESUME
+    The model ignores the overlap and continues or completes the
+    pre‑overlap task / answer that was already in progress.
+
+C_UNCERTAIN_HANDLING
+    The model signals uncertainty or difficulty hearing / missing info
+    (“I didn’t catch that…”, “Could you repeat?”) without giving a clear,
+    content‑specific answer. (All generic repeat/clarification moves fall here.)
+
+C_UNKNOWN
+    The model output is semantically off-target or low-information: does
+    not clearly resume, respond, or express uncertainty (e.g., unrelated filler,
+    templated noise). Includes cases where there is no model speech at all 
+    after the overlap.
+
+
+Annotation Procedure
+--------------------
+1. Locate overlap_start / overlap_end in input_noisy (for reference).
+2. Scan output_noisy for model speech occurring after overlap_start.
+3. Using the Semantic‑Segment Rule, find the first *new* post‑overlap
+   semantic segment. Ignore stretches that began before the overlap.
+4. If no new segment: label C_UNKNOWN.
+5. Otherwise assign the single best C_* tag to that segment.
+6. Please do not output the explanation, just give the label.
+7. If the input and output languages differ, first translate the output into the input language, then judge semantic consistency. If it does not fit the context: label C_UNKNOWN.
+8. Special-case — Repeat-request interrupts. Some overlaps are explicit user requests to repeat (e.g., “could you repeat what you just said?”). In such cases the model’s post-overlap reply may closely resemble its prior reply. To avoid mislabeling:
+   ## If the overlap is a repeat request and the model’s first valid post-overlap segment restates or clearly paraphrases the model’s prior content as a direct response to that repeat request, treat that segment as C_RESPOND (the model is responding to the overlap by repeating/clarifying).
+   ## Use contextual cues (explicit addressing of the user’s repeat request, short preface like “Sure, I said…”, or other markers that indicate the model is replying to the repeat) to confirm it is a response to the repeat. If no such indicators exist and the segment is indistinguishable from normal continuation of the pre-overlap turn, apply the standard rules (C_RESUME vs C_RESPOND) using the Semantic-Segment Rule.
+   ## When languages differ, translate prior model output and post-overlap output into the input language before comparing for repetition/paraphrase (as per step 7).
+9. Output the required single‑line JSON exactly as specified above (no newline).
