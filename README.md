@@ -25,7 +25,7 @@ All submitted models will undergo automated evaluation on an emotion test set, u
 
 ### Evaluation Metrics
 
-For detailed design specifications and implementation details of the evaluation prompts, please refer to our provided folder Emotional_Intelligence.
+For detailed design specifications and implementation details of the evaluation prompts, please refer to our provided folder Emotional_Intelligence. Please note that these prompts may be subject to minor adjustments during the final evaluation phase.
 
 #### Task 1: Emotional Trajectory Summary
 - **Accuracy_Completeness**: Evaluate whether the model strictly and precisely matches and describes all emotion tags present in the conversation history, and accurately reconstructs the full emotional trajectory.  
