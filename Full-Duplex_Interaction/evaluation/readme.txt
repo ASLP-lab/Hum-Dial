@@ -4,6 +4,7 @@
 （3）总延迟：打断场景的两个延迟（stop latency和 response latency），打断和拒识场景的模型的首次回复延迟（first_response_delay），三者取平均值。
 （4）对于总延迟的计算，打断的两个延迟（stop latency和 response latency），打断共五个小场景，每个场景都要计算，最后取平均值；模型的首次回复延迟（first_response_delay）是打断和拒识共九个场景都要计算，最后取平均值。
 （5）最终的RESPOND和RESUME分数保留小数点后两位，总延迟保留小数点后三位。
+（6）total_score.jpg是初步的总分计算规则，计算方式和各部分权重可能会有变动。
 环境配置：
 conda create -n full-duplex-bench python=3.10
 conda activate full-duplex-bench
