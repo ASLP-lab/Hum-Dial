@@ -154,6 +154,10 @@ For task 3, the turn with the final "neutral" emotion is used as the evaluation 
 
 We release a training set in Chinese and English, including 3-turn, 4-turn, and 5-turn dialogues, focusing on emotional dynamics and underlying reasons for emotional changes. The dataset contains approximately 100 hours of audio data, with only questions recorded, while responses are provided in text format for reference. 
 
+In this task, the provided dataset contains authentic user audio paired with sample model response texts. We have intentionally omitted the corresponding audio for the model responses to encourage participants to focus on generating higher-quality textual content and to allow them the freedom to explore their choice of Text-to-Speech (TTS) technologies.
+
+Your goal is to create a better, more appropriate text response based on the user's audio, and then use any TTS system to convert your text into the final speech output. The sample texts we provide are intended as a reference only.
+
 - **Emotional Trajectory Detection**: Contains 3, 4, and 5-turn dialogues, where in the final turn users ask the model about their own emotional changes.
 - **Emotional Reasoning**: Contains 3, 4, and 5-turn dialogues, where in the final turn users ask the model about the underlying reasons for emotions.
 - **Empathy Assessment**: You can use the data from task2 and task3, and use open-source TTS tools to synthesize response audio for training. Note that it is prohibited to use commercial models to synthesize response audio.
