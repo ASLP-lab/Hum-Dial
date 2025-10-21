@@ -206,8 +206,9 @@ For **rejection** scenarios, we evaluate the **rejection rate**, which is derive
 Additionally, we introduce **first response delay** to evaluate the overall responsiveness of the model.
 
 ### Evaluation Results
-
-
+The figure below presents our evaluation results (the evaluation follows the code provided in the Full-Duplex_Interaction/evaluation directory).
+The inference code for Freeze-Omni and Moshi can be found in [Full-Duplex-Bench v1.5](https://github.com/DanielLin94144/Full-Duplex-Bench), while the inference code for Easy Turn + OSUM-Echat (Baseline) is available in the Full-Duplex_Interaction/baseline directory.
+<div align="center"><img width="600px" src="Full-Duplex_Interaction/evaluation/evaluation_results.png" /></div>
 ### Dataset
 
 - The dataset is designed to cover the core scenarios of full-duplex interaction, ensuring diversity and authenticity to comprehensively evaluate the performance of participating models. It includes dialogue scenes in both Chinese and English. 
