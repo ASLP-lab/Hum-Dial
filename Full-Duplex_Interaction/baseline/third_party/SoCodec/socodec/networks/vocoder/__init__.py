@@ -1,1 +1,0 @@
-from .bigvgan import BigVGANGenerator, BigVGANDiscriminator
