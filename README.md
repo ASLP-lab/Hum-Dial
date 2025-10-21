@@ -205,6 +205,8 @@ For **rejection** scenarios, we evaluate the **rejection rate**, which is derive
 
 Additionally, we introduce **first response delay** to evaluate the overall responsiveness of the model.
 
+### Evaluation Results
+
 
 ### Dataset
 
