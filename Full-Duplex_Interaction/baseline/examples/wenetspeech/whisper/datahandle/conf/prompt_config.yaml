@@ -1,0 +1,143 @@
+<TRANSCRIBE>:
+  - 转录如下音频。
+  - 转录这段音频中的语音内容为文字。
+  - 将音频的语音部分转换为文字形式，谢谢。
+  - 将这段音频的语音内容详细记录为文字稿。
+  - 执行语音识别任务，将音频转换为文字。
+<TRANSCRIBE> <ALIGN>:
+  - 请将以下音频进行转录，同时标记出每个英文单词及对应中文字符的起始与结束时间，时间单位精确到0.1秒，并用<>来表示这些时间范围。
+
+<SPEECH> <ALIGN>:  # 测试集的人整错了，补丁
+  - 将以下音频进行转录，同时标记出每个英文单词及对应中文字符的起始与结束时间，时间单位精确到0.1秒，并用<>来表示这些时间范围。
+
+<S2TCHAT>:
+ - 实现语音与文字的即时交流，请直接进行回复。
+
+
+<TRANSCRIBE> <S2TCHAT>:
+ - 首先将语音转录为文字，然后对语音内容进行回复，转录和文字之间使用<开始回答>分割。
+
+
+
+# <S2TCHAT>: # 2025-1-18日测试，对于对话任务不加入prompt
+#   - <no_prompt>
+#   - <no_prompt>
+#   - <no_prompt>
+#   - <no_prompt>
+#   - <no_prompt>
+
+
+<TRANSCRIBE> <BACKGROUND>:
+  - 将语音转录并依据位置标注背景音，长背景静音用<lbkg>标记，短背景音用<sbkg>标记。
+
+
+<TRANSCRIBE> <EMOTION>:
+  - 请将以下音频内容进行转录，并在结尾处给出<情感>标签，情感共分为8类：sad，anger，neutral，happy，surprise，fear，disgust，以及other。
+
+
+<EMOTION>:
+  - 识别如下音频发言者的情感，直接给出<情感>标签，情感共分为8类：sad，anger，neutral，happy，surprise，fear，disgust，以及other。
+
+<TRANSCRIBE> <STYLE>:
+  - 请将以下音频内容进行转录，并在结尾处给出<风格>标签，风格共分为8类：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。
+
+<STYLE>:
+  - 判断如下音频的风格，直接给出<风格>标签，风格共分为8类：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。
+
+
+
+<TRANSCRIBE> <CAPTION>:
+  - 请将以下音频进行转录，并在结尾处给出<音频事件>标签，音频事件分为8类：laugh，cough，cry，screaming，sigh，throat clearing，sneeze，other。
+
+
+<CAPTION>:
+  - 分辨如下音频中包含的音频事件，并给出<音频事件>标签，音频事件分为8类：laugh，cough，cry，screaming，sigh，throat clearing，sneeze，other。
+
+
+
+<TRANSCRIBE> <GENDER>:
+  - 请将这段音频进行转录，并在文本末尾附加<性别>标签。性别分为两种：female，male。
+
+
+<GENDER>:
+  - 请判断如下语音中发言者的性别，给出<性别>标签。性别分为两种：female，male。
+
+
+
+
+<TRANSCRIBE> <AGE>:
+  - 将这段音频进行转录，并在转录完成的文本末尾附加<年龄>标签。年龄类别分为三种：child、adult、old。
+
+
+<AGE>:
+  - 请判断如下语音中发言者的年龄，输出<年龄>标签。年龄类别分为三种：child、adult、old。
+
+
+
+
+
+
+<TRANSCRIBE> <AGE> <GENDER>:
+  - 请将这段音频进行转录，并在转录完成的文本末尾附加"<年龄> <性别>"标签。年龄分为child、adult、old三种，性别为female或male。
+
+
+<AGE> <GENDER>:
+  - 请识别以下音频发言者的年龄和性别。年龄分为child、adult、old三种，性别为male和female。
+
+
+
+
+<SOT>:
+  - 请依据说话人的先后顺序转录以下音频，使用<sc>标签分隔不同说话人的内容。
+
+
+
+
+
+
+# stage 3
+
+<TRANSCRIBE> <STYLE> <AGE> <GENDER>:
+  - 请将以下音频内容进行转录，并在转录完成的文本末尾分别附加<风格>、<年龄>、<性别>标签。风格共分为8类：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。年龄分为child、adult、old三种，性别为male和female。
+
+<STYLE> <AGE> <GENDER>:
+  - 请识别如下音频的说话风格、说话者的年龄和性别。其中风格有8种类型：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。年龄划分为child、adult、old三个阶段，性别则为male和female。
+
+
+<TRANSCRIBE> <BACKGROUND> <INTERRUPT>:
+  - 将语音转录并依据位置标注背景音，长背景静音用<lbkg>标记，短背景音用<sbkg>标记，同时如果发现语音的语音不完整则再用<incomplete>标签标记语义的中断。
+
+
+
+<TRANSCRIBE> <PUNCTUATION>:
+  - 对如下语音进行转录，并对转录文本加上标点。
+
+
+<TRANSCRIBE> <DIALECT>:
+  - 请将下列音频内容转录为文字，并在转录文本后标注中文方言种类标签。其中分为 粤语:<CN_YUEYU>,上海话：<CN_SHANGHAI>，四川话：<CN_SICHUAN>，普通话：<CN>。
+
+<TRANSCRIBE> <CAPTION> <AGE> <GENDER>:
+  - 请将以下音频内容进行转录，并在转录完成的文本末尾分别附加<音频事件>、<年龄>、<性别>标签。音频事件分为8类：laugh，cough，cry，screaming，sigh，throat clearing，sneeze，other。年龄分为child、adult、old三种，性别为male和female。
+
+
+
+<TRANSCRIBE> <EMOTION> <AGE> <GENDER>:
+  - 请将以下音频内容进行转录，并在转录完成的文本末尾分别附加<情感>、<年龄>、<性别>标签。情感分为8类：sad，anger，neutral，happy，surprise，fear，disgust，以及other。年龄分为child、adult、old三种，性别为male和female。
+
+
+
+
+<S2TCHAT> <TEXT2TOKEN>:
+  - 请将如下语音以chat的形式得到对应回答的文本，并将回答文本转成它们对应的语音token，要求生成尽可能流畅和自然的语音.
+
+
+
+<TEXT2TOKEN>:
+  - 请将如下文本转成它们对应的语音token，要求生成尽可能流畅和自然的语音.
+
+
+
+
+
+<TRANSCRIBE> <SPEAKER>:
+  - 对如下音频进行语音识别，同时转录时需要在转录句子之后标注每一句话的发言者，说话人标签序号按出现顺序依次递增，诸如<speaker_1>、<speaker_2>等标签。如果出现两个说话人同时说话的情况，需要先转录先发言的说话人说的话。

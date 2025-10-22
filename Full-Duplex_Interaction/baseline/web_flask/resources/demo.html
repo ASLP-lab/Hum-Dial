@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSUM-EChat Demo</title>
+    <script src="https://unpkg.com/socket.io-client@4.8.1/dist/socket.io.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        canvas {
+            border: 1px solid black;
+            margin: 10px 0;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .alert {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+            border-radius: 5px;
+        }
+                .interrupt-result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            min-height: 80px;
+            font-size: 16px;
+            text-align: left;
+            overflow-y: auto;
+            max-height: 150px;
+        }
+        .result-label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .speaker-select {
+            margin: 10px 0;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .vocoder-select {
+            margin: 10px 0;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>OSUM-EChat Demo</h1>
+        <select id="speakerList" class="speaker-select">
+            <option value="女性声优">女性声优</option>
+            <option value="男性声优">男性声优</option>
+            <option value="拟人">拟人</option>
+            <option value="拟人2">拟人2</option>
+            <option value="儿童">儿童</option>
+            <option value="谢老师">谢老师</option>
+            <option value="罗翔">罗翔</option>
+            <option value="余承东">余承东</option>
+            <option value="天津">天津</option>
+            <option value="海湾宝宝">海湾宝宝</option>
+            <option value="太乙真人">太乙真人</option>
+            <option value="孙悟空">孙悟空</option>
+            <option value="甄嬛">甄嬛</option>
+            <option value="lx_0">lx_0</option>
+            <option value="lx_1">lx_1</option>
+            <option value="lx_4">lx_4</option>
+        </select>
+        <select id="vocoderList" class="vocoder-select">
+            <option value="hifigan">hifigan</option>
+            <option value="bigvgan">bigvgan</option>
+        </select>
+        <div class="button-group">
+        <button id="startButton">Dialogue Start</button>
+        <button id="stopButton" disabled>Dialogue Stop</button>
+        <button id="interruptButton">Interrupt</button> 
+        </div>
+        <h2>Input Waveform</h2>
+        <canvas id="inputCanvas" width="600" height="100"></canvas>
+        <h2>Output Waveform</h2>
+        <canvas id="outputCanvas" width="600" height="100"></canvas>
+        <!-- 添加中断结果区域 -->
+        <div class="interrupt-result">
+            <span class="result-label">Interrupt Model Result:</span>
+            <div id="iptResText">Waiting for results...</div>
+        </div>
+        <audio id="remoteAudio" autoplay playsinline></audio>
+        <div id="alertBox" class="alert">Too many users connected. Please refresh and try again.</div>
+        <div id="alertBox2" class="alert">Connect time out. Please refresh and reconnect.</div>
+    </div>
+    <script>
+        // 获取页面中的音频元素
+        const remoteAudio = document.getElementById('remoteAudio');
+        // 获取开始和停止按钮元素
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+        const interruptButton = document.getElementById('interruptButton');
+        // 获取输入和输出波形的画布元素
+        const inputCanvas = document.getElementById('inputCanvas');
+        const outputCanvas = document.getElementById('outputCanvas');
+        // 获取画布的2D绘图上下文
+        const inputCtx = inputCanvas.getContext('2d');
+        const outputCtx = outputCanvas.getContext('2d');
+        // 获取警告框元素
+        const alertBox = document.getElementById('alertBox');
+        const alertBox2 = document.getElementById('alertBox2');
+        const alertBox3 = document.getElementById('alertBox2');
+        // 获取speaker list下拉菜单
+        const speakerList = document.getElementById('speakerList');
+        const vocoderList = document.getElementById('vocoderList');
+        // 获取中断结果文本框元素
+        const iptResText = document.getElementById('iptResText');
+        // 创建Socket.IO连接
+        const socket = io();
+        // 音频队列用于存储接收到的音频数据
+        const audioQueue = [];
+        // 标记当前是否正在播放音频
+        let isPlaying = false;
+        // 当前音频源
+        let currentSource = null;
+
+        let localStream;
+        let audioContext;
+        let audioContext2;
+        let processor;
+        let isRecording = false;
+        const fixedSampleRate = 16000;
+
+        // 为speaker list添加change事件监听器
+        speakerList.addEventListener('change', handleSpeakerSelect);
+        // 为vocoder list添加change事件监听器
+        vocoderList.addEventListener('change', handleVocoderSelect);
+        // 为开始按钮添加点击事件监听器
+        startButton.addEventListener('click', startRecording);
+        // 为停止按钮添加点击事件监听器
+        stopButton.addEventListener('click', stopRecording);
+        // 为中断按钮添加点击事件监听器
+        interruptButton.addEventListener('click', interruptDialogue);
+
+        // 创建第二个音频上下文，用于播放接收到的音频
+        audioContext2 = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 24000 });
+        // audioContext2 = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
+
+        function handleSpeakerSelect() {
+            // 发送选中的speaker到服务器
+            socket.emit('speaker-select', speakerList.value);
+        }
+
+        // Handle vocoder selection
+        function handleVocoderSelect() {
+            // 发送选中的vocoder到服务器
+            socket.emit('vocoder-select', vocoderList.value);
+        }
+
+        async function startRecording() {
+            // 清空音频队列
+            audioQueue.length = 0;
+            // 停止当前播放的音频源
+            if (currentSource) {
+                currentSource.stop();
+                currentSource = null;
+            }
+            // 标记为未播放状态
+            isPlaying = false;
+            
+            // 关闭之前的音频上下文
+            if (audioContext) {
+                audioContext.close();
+            }
+            // 断开之前的处理器
+            if (processor) {
+                processor.disconnect();
+            }
+
+            // 获取用户媒体（音频）
+            localStream = await navigator.mediaDevices.getUserMedia({ audio: {autoGainControl: false, echoCancellation: true, noiseSuppression: false, latency: 0.001} });
+            // localStream = await navigator.mediaDevices.getUserMedia({ audio: {autoGainControl: false, echoCancellation: false, noiseSuppression: false, latency: 0.001} });
+
+            // 创建新的音频上下文
+            audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: fixedSampleRate });
+            // 将媒体流连接到音频上下文
+            const input = audioContext.createMediaStreamSource(localStream);
+            // 创建脚本处理器
+            processor = audioContext.createScriptProcessor(256, 1, 1);
+
+            // 处理音频数据
+            processor.onaudioprocess = (e) => {
+                if (!isRecording) return;
+
+                const inputData = e.inputBuffer.getChannelData(0);
+
+                const int16Array = new Int16Array(inputData.length);
+                for (let i = 0; i < inputData.length; i++) {
+                    int16Array[i] = inputData[i] * 0x7FFF;
+                }
+                // 发送音频数据到服务器
+                socket.emit('audio', JSON.stringify({ sample_rate: audioContext.sampleRate, audio: Array.from(new Uint8Array(int16Array.buffer)) }));
+                // 绘制输入波形
+                drawWaveform(inputData, inputCtx);
+            };
+
+            // 连接音频处理节点
+            input.connect(processor);
+            processor.connect(audioContext.destination);
+
+            // 标记为正在录制
+            isRecording = true;
+            startButton.disabled = true;
+            stopButton.disabled = false;
+
+            // 通知服务器开始录制
+            socket.emit('recording-started');
+        }
+
+        function stopRecording() {
+            // 清空音频队列
+            audioQueue.length = 0;
+            // 停止当前播放的音频源
+            if (currentSource) {
+                currentSource.stop();
+                currentSource = null;
+            }
+            // 标记为未播放状态
+            isPlaying = false;
+            // 标记为未录制状态
+            isRecording = false;
+            // 停止音频轨道
+            localStream.getTracks().forEach(track => track.stop());
+            startButton.disabled = false;
+            stopButton.disabled = true;
+
+            // 通知服务器停止录制
+            socket.emit('recording-stopped');
+        }
+
+        function interruptDialogue() {
+            interruptButton.disabled = false;
+            
+            // 通知服务器中断对话
+            socket.emit('interrupt');
+        }
+        // 处理"中断模型结果"事件
+        socket.on('interrupt_result', (data) => {
+            const result = data.text;
+            let style = '';
+            
+            // 根据结果类型添加样式
+            if (result.includes("<complete>")) {
+                style = 'color: green; font-weight: bold;';
+            } else if (result.includes("<incomplete>")) {
+                style = 'color: orange; font-weight: bold;';
+            } else if (result.includes("<backchannel>")) {
+                style = 'color: blue; font-weight: bold;';
+            } else {
+                style = 'color: red; font-weight: bold;';
+            }
+            
+            // 更新结果文本并添加样式
+            iptResText.innerHTML = `<div style="${style}">${result}</div>`;
+            // 添加时间戳
+            const time = new Date().toLocaleTimeString();
+            iptResText.innerHTML += `<div style="font-size: 12px; margin-top: 8px; color: #666;">[${time}]</div>`;
+        });
+
+        // 处理“用户过多”事件
+        socket.on('too_many_users', (data) => {
+            alert('Too many users connected. Please refresh and try again.');
+        });
+
+        // 处理“连接超时”事件
+        socket.on('out_time', (data) => {
+            alert('Connect time out. Please refresh and reconnect.');
+        });
+        
+        // 处理接收到的音频数据
+        socket.on('audio', (data) => {
+            audioQueue.push(data);
+            if (!isPlaying) {
+                playNextAudio();
+            }
+        });
+        // 处理停止TTS事件
+        socket.on('stop_tts', () => {
+            audioQueue.length = 0;
+            if (currentSource) {
+                currentSource.stop();
+                currentSource = null;
+            }
+            isPlaying = false;
+        });
+
+        // 播放下一个音频
+        function playNextAudio() {
+            if (audioQueue.length === 0) {
+                isPlaying = false;
+                return;
+            }
+
+            isPlaying = true;
+            const data = audioQueue.shift();
+            // 创建音频缓冲区
+            const audioBuffer = audioContext2.createBuffer(1, data.byteLength / 2, audioContext2.sampleRate);
+            const float32Array = new Float32Array(data.byteLength / 2);
+            const int16Array = new Int16Array(data);
+            for (let i = 0; i < int16Array.length; i++) {
+                float32Array[i] = int16Array[i] / 0x7FFF;
+            }
+            // 绘制输出波形
+            drawWaveform(float32Array, outputCtx);
+            // 将数据复制到音频缓冲区
+            audioBuffer.copyToChannel(float32Array, 0);
+            // 创建音频源并播放
+            const source = audioContext2.createBufferSource();
+            source.buffer = audioBuffer;
+            source.connect(audioContext2.destination);
+            source.start();
+
+            currentSource = source;
+
+            // 当音频播放结束时，继续播放下一个音频
+            source.onended = () => {
+                currentSource = null;
+                playNextAudio();
+            };
+        }
+
+        // 绘制波形
+        function drawWaveform(data, context) {
+            context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+            context.beginPath();
+            context.moveTo(0, context.canvas.height / 2);
+            for (let i = 0; i < data.length; i++) {
+                const x = (i / data.length) * context.canvas.width;
+                const y = (1 - data[i]) * context.canvas.height / 2;
+                context.lineTo(x, y);
+            }
+            context.stroke();
+        }
+    </script>
+</body>
+</html>

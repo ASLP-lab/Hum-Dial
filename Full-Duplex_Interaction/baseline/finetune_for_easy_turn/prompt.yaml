@@ -1,0 +1,6 @@
+<TRANSCRIBE> <BACKCHANNEL> <COMPLETE>:
+  - ​请转录音频内容，并在文末添加以下三种标签之一进行打断判定：<complete>表示语义完整，<incomplete>表示语义不完整，<backchannel>表示简短的附和。
+  - 请将音频转写为文本，并在结尾标注打断类型：<complete>（语义完整）、<incomplete>（语义不完整）、<backchannel>（附和语句）。
+  - 请先转录音频内容，再在末尾添加打断判定标签：<complete>表示语义完整，<incomplete>表示语义不完整，<backchannel>表示简单附和。
+  - 请将音频内容转换为文字，并在文末附加下列打断标签之一：<complete>（语义完整）、<incomplete>（语义不完整）、<backchannel>（反馈信号）。
+  - ​请对音频进行文字转录，并在最后注明打断状态，三种标签为：<complete>代表语义完整，<incomplete>代表语义不完整，<backchannel>代表简短附和。

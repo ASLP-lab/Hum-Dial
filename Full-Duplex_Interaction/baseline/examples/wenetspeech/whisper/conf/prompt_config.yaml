@@ -1,0 +1,279 @@
+<TRANSCRIBE>:
+  - 转录如下音频。
+  - 转录这段音频中的语音内容为文字。
+  - 将音频的语音部分转换为文字形式，谢谢。
+  - 将这段音频的语音内容详细记录为文字稿。
+  - 执行语音识别任务，将音频转换为文字。
+<TRANSCRIBE> <ALIGN>:
+  - 请将以下音频进行转录，同时标记出每个英文单词及对应中文字符的起始与结束时间，时间单位精确到0.1秒，并用<>来表示这些时间范围。
+  - 转录音频内容，并为每个英文词汇及其对应的中文翻译标注出精确到0.1秒的起止时间，时间范围用<>括起来。
+  - 将音频转录为文字，同时在每个英文单词和相应中文字符的前后添加时间戳，时间戳格式为<>，且时间单位需精确到0.1秒。
+  - 请将音频转化为文字记录，并标记每个英文词及其对应中文的起始时间和结束时间，时间单位至少为0.1秒，使用<>来标注这些时间。
+  - 将音频内容进行转录处理，并为其中的每个英文单词及其翻译后的中文标注时间范围，时间精确到0.1秒，并用<>进行包围。
+
+<SPEECH> <ALIGN>:  # 测试集的人整错了，补丁
+  - 将以下音频进行转录，同时标记出每个英文单词及对应中文字符的起始与结束时间，时间单位精确到0.1秒，并用<>来表示这些时间范围。
+  - 转录音频内容，并为每个英文词汇及其对应的中文翻译标注出精确到0.1秒的起止时间，时间范围用<>括起来。
+  - 将音频转录为文字，同时在每个英文单词和相应中文字符的前后添加时间戳，时间戳格式为<>，且时间单位需精确到0.1秒。
+  - 请将音频转化为文字记录，并标记每个英文词及其对应中文的起始时间和结束时间，时间单位至少为0.1秒，使用<>来标注这些时间。
+  - 将音频内容进行转录处理，并为其中的每个英文单词及其翻译后的中文标注时间范围，时间精确到0.1秒，并用<>进行包围。
+
+<S2TCHAT>:
+ - 实现语音与文字的即时交流，请直接进行回复。
+ - 根据语音输入，直接以文字形式进行回答或对话。
+ - 接收语音输入后，请转换为文字并给出相应回复。
+ - 对语音问题直接进行对话交流。
+ - 请将语音输入解析为文字信息，然后直接回复或对话。
+
+<TRANSCRIBE> <S2TCHAT>:
+ - 首先将语音转录为文字，然后对语音内容进行回复，转录和文字之间使用<开始回答>分割。
+ - 首先将语音转换为文本，接着使用<开始回答>作为分隔，最后对语音内容进行回复。
+ - 首先把语音变成文本，然后用<开始回答>作分隔，最后对语音内容予以回应。
+ - 首先将语音转化为书面语，随后以<开始回答>作分隔，最后对语音内容做出答复。
+ - 首先将语音转为文字形式，之后用<开始回答>来分隔，最后对语音内容给予回应。
+
+
+# <S2TCHAT>: # 2025-1-18日测试，对于对话任务不加入prompt
+#   - <no_prompt>
+#   - <no_prompt>
+#   - <no_prompt>
+#   - <no_prompt>
+#   - <no_prompt>
+
+
+<TRANSCRIBE> <BACKGROUND>:
+  - 将语音转录并依据位置标注背景音，长背景静音用<lbkg>标记，短背景音用<sbkg>标记。
+  - 录制语音并进行转录，同时按位置添加背景音标签，长静音为<lbkg>，短音为<sbkg>。
+  - 语音转录时，需根据位置插入背景音标签，长段静音标为<lbkg>，短背景音标为<sbkg>。
+  - 转换语音为文字，并依位置附上背景音标签，其中长背景静音为<lbkg>，短背景音为<sbkg>。
+  - 对语音进行转录处理，同时标注背景音标签，长静音部分用<lbkg>表示，短背景音部分用<sbkg>表示。
+
+<TRANSCRIBE> <EMOTION>:
+  - 请将以下音频内容进行转录，并在结尾处给出<情感>标签，情感共分为8类：sad，anger，neutral，happy，surprise，fear，disgust，以及other。
+  - 将音频转录为文字，并在文本最后附加<情感>标签，标签类型涵盖：sad，anger，neutral，happy，surprise，fear，disgust，还有other。
+  - 请将音频内容转录成文字记录，并在记录末尾标注<情感>标签，情感共8种：sad，anger，neutral，happy，surprise，fear，disgust，和other。
+  - 将音频进行文字化处理，并在处理后的文本末尾添加<情感>标签，标签种类有8种：sad，anger，neutral，happy，surprise，fear，disgust，以及其他情况other。
+  - 请将音频转录成文，并在文末给出<情感>标签，情感分为八大类：sad，anger，neutral，happy，surprise，fear，disgust，以及不属于上述类别的other。
+
+<EMOTION>:
+  - 识别如下音频发言者的情感，直接给出<情感>标签，情感共分为8类：sad，anger，neutral，happy，surprise，fear，disgust，以及other。
+  - 请辨认以下音频中发言者的情感，直接给出<情感>标签，情感总共有8种类型：sad，anger，neutral，happy，surprise，fear，disgust，还有other。
+  - 请判别如下音频里发言者的情感，径直给出<情感>标签，情感共计8类：sad，anger，neutral，happy，surprise，fear，disgust，和other。
+  - 请识别下述音频发言者的情感，直接给出<情感>标签，情感一共有8种：sad，anger，neutral，happy，surprise，fear，disgust，以及其他情况other。
+  - 判定如下音频中发言者的情感，直接给出<情感>标签，情感总计8类：sad，anger，neutral，happy，surprise，fear，disgust，以及不属于上述类别的other。
+
+
+#<TRANSCRIBE> <EMOTION>: # 智贤师兄的emotion单独任务的模型
+#  - Please describe the speaking style, content, and the speaker's emotional state of this audio.
+#  - Please describe the speaking style, content, and the speaker's emotional state of this audio.
+#  - Please describe the speaking style, content, and the speaker's emotional state of this audio.
+#  - Please describe the speaking style, content, and the speaker's emotional state of this audio.
+#  - Please describe the speaking style, content, and the speaker's emotional state of this audio.
+<TRANSCRIBE> <STYLE>:
+  - 请将以下音频内容进行转录，并在结尾处给出<风格>标签，风格共分为8类：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。
+  - 将音频转录为文字，并在文本末尾附加<风格>标签，标签种类包括：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。
+  - 将音频内容进行文字转录，并在最后添加<风格>标签，标签共8种：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。
+  - 将音频转录为文字记录，并在记录末尾附上<风格>标签，风格共8类，分别是：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。
+  - 将音频内容转录成文，并在文末标注<风格>标签，风格分类有8种，即：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。
+
+<STYLE>:
+  - 判断如下音频的风格，直接给出<风格>标签，风格共分为8类：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。
+  - 请判断如下音频的风格，直接给出<风格>标签，风格分为8类：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。
+  - 对于以下音频，请判断其风格，并直接给出<风格>标签，风格有8种分类：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。
+  - 请对以下音频的风格进行判断，并直接给出<风格>标签，风格共8类：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。
+  - 判断以下音频的风格，直接给出<风格>标签，风格类别有8种，即：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。
+
+
+
+<TRANSCRIBE> <CAPTION>:
+  - 请将以下音频进行转录，并在结尾处给出<音频事件>标签，音频事件分为8类：laugh，cough，cry，screaming，sigh，throat clearing，sneeze，other。
+  - 将音频内容转录成文字，并在文本最后附上<音频事件>标签，标签类型包括：laugh，cough，cry，screaming，sigh，throat clearing，sneeze以及other。
+  - 请将音频转录为文字记录，并在记录末尾标注<音频事件>标签，音频事件共8种：laugh，cough，cry，screaming，sigh，throat clearing，sneeze，other。
+  - 将音频内容进行文字化处理，并在处理后的文本末尾添加<音频事件>标签，标签种类有8种：laugh，cough，cry，screaming，sigh，throat clearing，sneeze，other。
+  - 请将音频转录成文，并在文末给出<音频事件>标签，音频事件分为八大类：laugh，cough，cry，screaming，sigh，throat clearing，sneeze以及其他情况other。
+
+<CAPTION>:
+  - 分辨如下音频中包含的音频事件，并给出<音频事件>标签，音频事件分为8类：laugh，cough，cry，screaming，sigh，throat clearing，sneeze，other。
+  - 请检测以下音频中包含的音频事件，直接给出<音频事件>标签，音频事件共分为8类：laugh，cough，cry，screaming，sigh，throat clearing，sneeze以及other。
+  - 分析以下音频中包含的音频事件，并直接给出<音频事件>标签，音频事件有8种分类：laugh，cough，cry，screaming，sigh，throat clearing，sneeze，other。
+  - 请判断如下音频内容中所包含的音频事件，并直接<音频事件>标签，标签种类有8种：laugh，cough，cry，screaming，sigh，throat clearing，sneeze，other。
+  - 对以下音频进行音频事件检测，给出<音频事件>标签，音频事件分为8类：laugh，cough，cry，screaming，sigh，throat clearing，sneeze以及其他情况other。
+
+
+<TRANSCRIBE> <GENDER>:
+  - 请将这段音频进行转录，并在文本末尾附加<性别>标签。性别分为两种：female，male。
+  - 请将音频内容转录成文字，并在最后加上<性别>标签，标明是female还是male。
+  - 请将音频转录为文本，并在文本结尾处标注<性别>标签，性别为female或male。
+  - 请将音频进行文字转录，并在转录文本的末尾附上<性别>标签，标签内容为female或male。
+  - 请将音频内容转换为文字，并在文字末尾添加<性别>标签，以指示是female还是male。
+
+<GENDER>:
+  - 请判断如下语音中发言者的性别，给出<性别>标签。性别分为两种：female，male。
+  - 识别语音中说话者的性别，并标注<性别>标签，性别有两种：female 或 male。
+  - 请判断语音中发言者的性别，并在结果中标注<性别>标签，性别分为female和male。
+  - 请通过语音判断发言者的性别，并给出<性别>标签，性别选项有两种：female或male。
+  - 请通过如下音频中发言者的声音判断其的性别，并直接给出<性别>标签，性别分为：female或male。
+
+
+
+<TRANSCRIBE> <AGE>:
+  - 将这段音频进行转录，并在转录完成的文本末尾附加<年龄>标签。年龄类别分为三种：child、adult、old。
+  - 请将以下音频内容转录成文字，并在文字的最后加上<年龄>标签，标明是child、adult还是old。
+  - 将音频转录为文本，并在文本结尾处标注<年龄>标签，年龄划分为child、adult和old三种。
+  - 请将音频进行详细的文字转录，并在转录文本的末尾附上<年龄>标签，标签内容为child、adult或old。
+  - 将音频内容转换成文字形式，并在转换后的文字末尾添加<年龄>标签，用以指示是child、adult还是old的年龄阶段。
+
+<AGE>:
+  - 请判断如下语音中发言者的年龄，输出<年龄>标签。年龄类别分为三种：child、adult、old。
+  - 请更具如下音频中说话者的声音判断其性别，并直接给出<年龄>标签，标明是child、adult还是old。
+  - 判断如下语音中说话者的性别，然后给出<年龄>标签，年龄划分为child、adult和old三种。
+  - 判断如下语音中说话的人的性别，直接给出<年龄>标签，标签内容为child、adult或old。
+  - 判断如下语音中发言的人的性别，并给出<年龄>标签，用以指示是child、adult还是old的年龄阶段。
+
+
+
+
+
+<TRANSCRIBE> <AGE> <GENDER>:
+  - 请将这段音频进行转录，并在转录完成的文本末尾附加"<年龄> <性别>"标签。年龄分为child、adult、old三种，性别为female或male。
+  - 请将以下音频内容转录成文字，并在文字的最后加上"<年龄> <性别>"标签，标明是child、adult或old，以及female或male。
+  - 请将音频转录为文本，并在文本结尾处标注"<年龄> <性别>"标签，年龄划分为child、adult和old，性别分为female和male。
+  - 请将音频进行详细的文字转录，并在转录文本的末尾附上"<年龄> <性别>"标签，标签内容为child、adult或old，以及female或male的性别标识。
+  - 请将音频内容转换成文字形式，并在转换后的文字末尾添加"<年龄> <性别>"标签，用以指示说话者的年龄阶段（child、adult、old）以及性别（female、male）。
+
+<AGE> <GENDER>:
+  - 请识别以下音频发言者的年龄和性别。年龄分为child、adult、old三种，性别为male和female。
+  - 请识别以下音频中的说话者的年龄和性别。年龄分为child、adult、old三种，性别为male和female。
+  - 请判断下列音频中的发言者的年龄与性别。年龄层次为child、adult、old，性别为male和female。
+  - 请确定以下音频中讲话人的年龄和性别。年龄可分为child、adult、old三个阶段，性别为male和female。
+  - 请分析下列音频中的说话人的年龄和性别。年龄划分为child、adult、old三类，性别为male和female。
+
+
+
+<SOT>:
+  - 请依据说话人的先后顺序转录以下音频，使用<sc>标签分隔不同说话人的内容。
+  - 请把下列音频按说话人出现的顺序转录，并在不同说话人的内容间插入<sc>标签。
+  - 请将音频中的话语按说话人先进先出的原则转录，并用<sc>标签区分不同说话人的抄本。
+  - 请按照说话人的出场顺序转录以下音频，使用<sc>标签来分隔不同说话人的部分。
+  - 请根据说话人的先后顺序将以下音频转录，不同说话人的内容之间请用<sc>标签进行分隔。
+
+
+
+
+
+# stage 3
+
+<TRANSCRIBE> <STYLE> <AGE> <GENDER>:
+  - 请将以下音频内容进行转录，并在转录完成的文本末尾分别附加<风格>、<年龄>、<性别>标签。风格共分为8类：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。年龄分为child、adult、old三种，性别为male和female。
+  - 请将下列音频内容进行转录，并在转录文本的末尾分别添加<风格>、<年龄>、<性别>标签。风格有8类：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。年龄划分为child、adult、old三种，性别分为male和female。
+  - 请转录以下音频内容，并在转录后的文本末尾标注<风格>、<年龄>、<性别>标签。风格包括新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他8种类型。年龄分为child、adult、old，性别则为male和female。
+  - 请将以下音频内容转录，并在转录完成后，附加<风格>、<年龄>、<性别>三个标签。风格一共有8种，包括新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。年龄层次分为child、adult、old，性别为male和female。
+  - 请对以下音频内容进行转录，并在文本结尾分别添加<风格>、<年龄>、<性别>标签。风格有8种类型：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。年龄划分为child、adult、old三个阶段，性别则为male和female。
+
+<STYLE> <AGE> <GENDER>:
+  - 请识别如下音频的说话风格、说话者的年龄和性别。其中风格有8种类型：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。年龄划分为child、adult、old三个阶段，性别则为male和female。
+  - 请分析以下音频的说话风格、说话者的年龄和性别。风格包括8种类型：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。年龄划分为child、adult、old三个层次，性别为male和female。
+  - 请识别下面音频的说话风格、说话者的年龄和性别。风格分为8种类型：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。年龄段分为child、adult、old三类，性别为male和female。
+  - 请对以下音频进行分析，识别说话风格、说话者年龄和性别。风格类型有8种，包括新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。年龄阶段为child、adult、old三种，性别为male或female。
+  - 请对下面音频内容识别说话风格、说话者的年龄和性别。风格包括8个类别：新闻科普、恐怖故事、童话故事、客服、诗歌散文、有声书、日常口语、其他。年龄分为child、adult、old三个阶段，性别为male或female。
+
+
+
+<TRANSCRIBE> <BACKGROUND> <INTERRUPT>:
+  - 将语音转录并依据位置标注背景音，长背景静音用<lbkg>标记，短背景音用<sbkg>标记，同时如果发现语音的语音不完整则再用<incomplete>标签标记语义的中断。
+  - 将语音转录并按位置标记背景音，长时间背景静音用<lbkg>表示，短暂背景音用<sbkg>表示，同时若语音不完整则用<incomplete>标记语义中断。
+  - 对语音进行转录，并标注背景音的位置，长时间背景静音标记为<lbkg>，短时间背景音标记为<sbkg>，若出现语音不完整，则使用<incomplete>标签指示语义中断。
+  - 进行语音转录并标记背景音位置，长背景静音用<lbkg>标签，短背景音用<sbkg>标签，并在语音不完整时用<incomplete>标记中断。
+  - 转录语音并根据位置标注背景音，长静音用<lbkg>，短静音用<sbkg>，同时当语音不完整时，用<incomplete>标签表示语义中断。
+
+# <TRANSCRIBE> <SPEECH_TOKEN>:
+#   - 请对重复如下音频，将其以speech token的形式呈现.
+#   - 请重复播放以下音频，并以 speech token 的形式来呈现它。
+#   - 麻烦对如下音频进行重复，且把它呈现为 speech token 的形式。
+#   - 请把下面的音频重复一遍，使其以 speech token 的形式展现出来。
+#   - 请重复下述音频，同时将其按照 speech token 的形式予以呈现。
+
+# <TEXT2TOKEN>:
+#   - 请将如下文本转成它们对应的语音token，要求生成尽可能流畅和自然的语音.
+#   - 烦请把如下文本转化为与之对应的语音token，要生成尽可能流畅且自然的语音。
+#   - 请把以下文本转变成它们相对应的语音token，需生成尽量流畅、自然的语音。
+#   - 恳请将如下文本转换为其对应的语音token，力求生成最为流畅、自然的语音。
+#   - 请把下述文本转化成它们对应的语音token，务必生成尽可能流畅、自然的语音。
+
+# <SPEECH2TEXT_SPEECH_TOKEN>:
+#   - 请将如下语音以chat的形式得到对应回答的文本，并将回答文本转成它们对应的语音token，要求生成尽可能流畅和自然的语音.
+#   - 请把以下语音通过聊天的方式来获取相应的回复文本，然后将回复文本转化为与之匹配的语音标记，期望生成十分流畅且自然的语音。
+#   - 请采用聊天形式获取这个语音相应的回答文本，并将该回答文本转换成其相应的语音令牌，目标是生成流畅自然的语音。
+#   - 将下述文本利用聊天模式得到相应的回答内容，同时把此回答内容转换成对应的语音标识符，要生成流畅、自然的语音。
+#   - 以聊天的方式对以下文本获取相应的回答文本，之后把该回答文本转换为对应的语音标记，旨在生成流畅自然的语音。
+
+
+<TRANSCRIBE> <PUNCTUATION>:
+  - 对如下语音进行转录，并对转录文本加上标点。
+  - 请将下方音频内容转写为文字，并在生成的文本中自动插入标点符号。
+  - 需对提供的语音文件执行文本转换，同时为转换结果补充必要的标点。
+  - 将给定录音转化为文字形式，并在转化后的内容中自动标注句读符号。
+  - 需要将语音内容转成文字记录，同步为文字内容添加标点并断句。
+
+<TRANSCRIBE> <DIALECT>:
+  - 请将下列音频内容转录为文字，并在转录文本后标注中文方言种类标签。其中分为 粤语:<CN_YUEYU>,上海话：<CN_SHANGHAI>，四川话：<CN_SICHUAN>，普通话：<CN>。
+  - 请将以下语音文件转写成文字版本，并在文字后附加对应的中文方言标签。分类标准为：粤语<CN_YUEYU>、上海话<CN_SHANGHAI>、四川话<CN_SICHUAN>，普通话<CN>。
+  - 请将音频数据生成文字记录，并在每条记录后标记所属方言类型，使用以下标识符：粤语→<CN_YUEYU>、上海话→<CN_SHANGHAI>、四川话→<CN_SICHUAN>，普通话→<CN>。
+  - 对如下音频进行语音识别，并关联对应的中文方言标签。标签规范为：<CN_YUEYU>代表粤语、<CN_SHANGHAI>代表上海话、<CN_SICHUAN>代表四川话，<CN>代表普通话。
+  - 请将语音内容识别为文字材料，补充方言种类标注信息。方言分类标签如下：粤语<CN_YUEYU>、上海话<CN_SHANGHAI>、四川话<CN_SICHUAN>，普通话<CN>。
+
+<TRANSCRIBE> <CAPTION> <AGE> <GENDER>:
+  - 请将以下音频内容进行转录，并在转录完成的文本末尾分别附加<音频事件>、<年龄>、<性别>标签。音频事件分为8类：laugh，cough，cry，screaming，sigh，throat clearing，sneeze，other。年龄分为child、adult、old三种，性别为male和female。
+  - 请将下列音频内容进行转录，并在转录文本的末尾分别添加<音频事件>、<年龄>、<性别>标签。音频事件包括8类：laugh，cough，cry，screaming，sigh，throat clearing，sneeze，other。年龄划分为child、adult、old三种，性别分为male和female。
+  - 请转录以下音频内容，并在转录后的文本末尾标注<音频事件>、<年龄>、<性别>标签。音频事件包括8种类型：laugh，cough，cry，screaming，sigh，throat clearing，sneeze，other。年龄分为child、adult、old，性别则为male和female。
+  - 请将以下音频内容转录，并在转录完成后，附加<音频事件>、<年龄>、<性别>三个标签。音频事件一共有8种，包括laugh，cough，cry，screaming，sigh，throat clearing，sneeze，other。年龄层次分为child、adult、old，性别为male和female。
+  - 请对以下音频内容进行转录，并在文本结尾分别添加<音频事件>、<年龄>、<性别>标签。音频事件分为8类：laugh，cough，cry，screaming，sigh，throat clearing，sneeze，other。年龄划分为child、adult、old三个阶段，性别则为male和female。
+
+
+
+<TRANSCRIBE> <EMOTION> <AGE> <GENDER>:
+  - 请将以下音频内容进行转录，并在转录完成的文本末尾分别附加<情感>、<年龄>、<性别>标签。情感分为8类：sad，anger，neutral，happy，surprise，fear，disgust，以及other。年龄分为child、adult、old三种，性别为male和female。
+  - 请将下列音频内容进行转录，并在转录文本的末尾分别添加<情感>、<年龄>、<性别>标签。情感包括8类：sad，anger，neutral，happy，surprise，fear，disgust，以及other。年龄划分为child、adult、old三种，性别分为male和female。
+  - 请转录以下音频内容，并在转录后的文本末尾标注<情感>、<年龄>、<性别>标签。情感包括8种类型：sad，anger，neutral，happy，surprise，fear，disgust，以及other。年龄分为child、adult、old，性别则为male和female。
+  - 请将以下音频内容转录，并在转录完成后，附加<情感>、<年龄>、<性别>三个标签。情感一共有8种，包括sad，anger，neutral，happy，surprise，fear，disgust，以及other。年龄层次分为child、adult、old，性别为male和female。
+  - 请对以下音频内容进行转录，并在文本结尾分别添加<情感>、<年龄>、<性别>标签。情感分为8类：sad，anger，neutral，happy，surprise，fear，disgust，以及other。年龄划分为child、adult、old三个阶段，性别则为male和female。
+
+
+
+
+<S2TCHAT> <TEXT2TOKEN>:
+  - 请将如下语音以chat的形式得到对应回答的文本，并将回答文本转成它们对应的语音token，要求生成尽可能流畅和自然的语音.
+  - 请把以下语音通过聊天的方式来获取相应的回复文本，然后将回复文本转化为与之匹配的语音token，期望生成十分流畅且自然的语音。
+  - 请采用聊天形式获取这个语音相应的回答文本，并将该回答文本转换成其相应的语音token，目标是生成流畅自然的语音。
+  - 将下述音频利用聊天模式得到相应的回答内容，同时把此回答内容转换成对应的语音token，要生成流畅、自然的语音。
+  - 以聊天的方式对以下音频获取相应的回答文本，之后把该回答文本转换为对应的语音token，旨在生成流畅自然的语音。
+  - 首先实现语音与文字的即时交流，直接进行回复，然后再把回答的文字转化为语音token。
+  - 先根据语音输入，直接以文字形式进行回答或对话，接着再生成语音token。
+  - 接收语音输入后，请直接给出文字回复，接下来再将回复转化为语音token。
+  - 首先对语音问题直接进行对话交流，然后再把文字的回答转化为语音token。
+  - 请将语音输入解析为文字信息，然后直接回复或对话，随之生成语音token。
+
+
+# <S2TCHAT> <TEXT2TOKEN2>:
+#   - 实现语音与语音token的即时交流，直接使用语音token进行回复。
+#   - 根据语音输入，直接以语音token形式进行回答或对话。
+#   - 接收语音输入后，请直接给出语音token的回复。
+#   - 对语音问题直接进行对话交流，以语音token的形式回复。
+#   - 请将语音进行回复，回复形式为语音token。
+
+<TEXT2TOKEN>:
+  - 请将如下文本转成它们对应的语音token，要求生成尽可能流畅和自然的语音.
+  - 烦请把如下文本转化为与之对应的语音token，要生成尽可能流畅且自然的语音。
+  - 请把以下文本转变成它们相对应的语音token，需生成尽量流畅、自然的语音。
+  - 恳请将如下文本转换为其对应的语音token，力求生成最为流畅、自然的语音。
+  - 请把下述文本转化成它们对应的语音token，务必生成尽可能流畅、自然的语音。
+
+
+
+
+<TRANSCRIBE> <SPEAKER>:
+  - 对如下音频进行语音识别，同时转录时需要在转录句子之后标注每一句话的发言者，说话人标签序号按出现顺序依次递增，诸如<speaker_1>、<speaker_2>等标签。如果出现两个说话人同时说话的情况，需要先转录先发言的说话人说的话。
+  - 将音频内容转为文字时，需在每句转写文本末尾添加发言者标签，说话人标签序号按出现顺序依次递增（如 <speaker_1>、<speaker_2>），若多人同时说话，优先转录开始时间更早的发言者内容。​
+  - 对指定音频执行语音转写，要求每条转录语句后标明说话人标签，说话人标签序号按出现顺序依次递增（例如 <speaker_1>、<speaker_2>），若存在说话人重叠，按发言先后顺序转录前者语句。​
+  - ​将音频转换为文字时，需在每句话后插入发言人标签，说话人标签序号按出现顺序依次递增（格式为 <speaker_1>、<speaker_2>），当多人同时发言，以发言时间先后为转录顺序。
+  - 对音频进行语音到文本转换，转写结果需包含每句话的说话人标识，说话人标签序号按出现顺序依次递增（如 <speaker_1>、<speaker_2>），如遇同时发言，优先转录先开始说话的发言人内容。​

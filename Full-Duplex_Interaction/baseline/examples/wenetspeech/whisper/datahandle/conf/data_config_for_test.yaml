@@ -1,0 +1,17 @@
+speech_text_token_add_2025_2_27:
+  path: "/mnt/sfs/asr/update_data/magic_data_500/shards_list.txt"
+  weight: 10
+
+speech_text_token_2_add_2025_2_27:
+  path: "/mnt/sfs/asr/update_data/magic_data_new/shards_list.txt"
+  weight: 10
+
+speech2text_token_wenetspeech_add_2025_3_5:
+  path: "/mnt/sfs/asr/update_data/speech2text_token/asr_chat_wenetspeech_enhance_2025-3-5/shards_list.txt"
+  weight: 10
+speech2text_token_aishell_chat_add_2025_3_5:
+  path: "/mnt/sfs/asr/update_data/speech2text_token/asr_chat_znlin_enhance_2025-3-5/shards_list.txt"
+  weight: 10
+speech2text_token_DB-ASR-106_add_by_2025-3_5:
+  path: "/mnt/sfs/asr/update_data/speech2text_token_DB-ASR-106_add_by_2025-3_5/shards_list.txt"
+  weight: 10

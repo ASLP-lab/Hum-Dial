@@ -1,0 +1,255 @@
+# Copyright (c) 2021 Mobvoi Inc. (authors: Binbin Zhang)
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import random
+
+import torch
+import torch.distributed as dist
+from torch.utils.data import IterableDataset
+
+import wenet.dataset.process.processor as processor
+from wenet.text.base_tokenizer import BaseTokenizer
+from wenet.utils.file_utils import read_lists
+
+
+class Processor(IterableDataset):
+
+    def __init__(self, source, f, *args, **kw):
+        assert callable(f)
+        self.source = source
+        self.f = f
+        self.args = args
+        self.kw = kw
+
+    def set_epoch(self, epoch):
+        self.source.set_epoch(epoch)
+
+    def __iter__(self):
+        """ Return an iterator over the source dataset processed by the
+            given processor.
+        """
+        assert self.source is not None
+        assert callable(self.f)
+        return self.f(iter(self.source), *self.args, **self.kw)
+
+    def apply(self, f):
+        assert callable(f)
+        return Processor(self, f, *self.args, **self.kw)
+
+
+class DistributedSampler:
+
+    def __init__(self, shuffle=True, partition=True, split_num=1,multi_num=1):
+        self.epoch = -1
+        self.update()
+        self.shuffle = shuffle
+        self.partition = partition
+        self.split_num = split_num
+        self.multi_num = multi_num
+
+    def update(self):
+        assert dist.is_available()
+        if dist.is_initialized():
+            self.rank = dist.get_rank()
+            self.world_size = dist.get_world_size()
+        else:
+            self.rank = 0
+            self.world_size = 1
+        worker_info = torch.utils.data.get_worker_info()
+        if worker_info is None:
+            self.worker_id = 0
+            self.num_workers = 1
+        else:
+            self.worker_id = worker_info.id
+            self.num_workers = worker_info.num_workers
+        return dict(rank=self.rank,
+                    world_size=self.world_size,
+                    worker_id=self.worker_id,
+                    num_workers=self.num_workers)
+
+    def set_epoch(self, epoch):
+        self.epoch = epoch
+
+    def split_data(self, total_num):
+        data = list(range(total_num))
+        sub_epoch = self.epoch + 1
+        full_epoch = sub_epoch // self.split_num
+        num_per_sub_epochs = total_num // self.split_num
+        random.Random(full_epoch).shuffle(data)
+
+        split_index = sub_epoch - full_epoch * self.split_num
+        begin = split_index * num_per_sub_epochs
+        end = (begin + num_per_sub_epochs 
+                if (split_index + 1) < self.split_num else
+                total_num)
+        
+        # print(f'begin: {begin}, end: {end}, world_size: {self.world_size}')
+        return data[begin:end]
+
+    def sample(self, data, split_num=1):
+        """ Sample data according to rank/world_size/num_workers
+
+            Args:
+                data(List): input data list
+
+            Returns:
+                List: data list after sample
+        """
+        if self.split_num == 1 and self.multi_num == 1:
+            data = list(range(len(data)))
+        elif self.split_num != 1:
+            assert self.multi_num == 1
+            data = self.split_data(len(data))
+        else: 
+            assert self.split_num ==1
+            data = list(range(len(data*self.multi_num)))
+        # TODO(Binbin Zhang): fix this
+        # We can not handle uneven data for CV on DDP, so we don't
+        # sample data by rank, that means every GPU gets the same
+        # and all the CV data
+        if self.partition:
+            if self.shuffle:
+                random.Random(self.epoch).shuffle(data)
+            data = data[self.rank::self.world_size]
+            # print(f'num dataset: {len(data)}')
+        data = data[self.worker_id::self.num_workers]
+        self.epoch += 1
+        return data
+
+
+class DataList(IterableDataset):
+
+    def __init__(self, lists, shuffle=True, partition=True, split_num=1):
+        self.lists = lists
+        self.sampler = DistributedSampler(shuffle, partition, split_num)
+
+    def set_epoch(self, epoch):
+        self.sampler.set_epoch(epoch)
+
+    def __iter__(self):
+        sampler_info = self.sampler.update()
+        indexes = self.sampler.sample(self.lists)
+        print(f'耿雪龙  这个进程的indexs len为 {len(indexes)}')
+        for index in indexes:
+            # yield dict(src=src)
+            data = dict(src=self.lists[index])
+            data.update(sampler_info)
+            yield data
+
+
+def Dataset(data_type,
+            data_list_file,
+            tokenizer: BaseTokenizer,
+            conf,
+            partition=True):
+    """ Construct dataset from arguments
+
+        We have two shuffle stage in the Dataset. The first is global
+        shuffle at shards tar/raw file level. The second is global shuffle
+        at training samples level.
+
+        Args:
+            data_type(str): raw/shard
+            bpe_model(str): model for english bpe part
+            partition(bool): whether to do data partition in terms of rank
+    """
+    assert data_type in ['raw', 'shard', 'shard_full_data']
+    lists = read_lists(data_list_file)
+    shuffle = conf.get('shuffle', True)
+    split_num = conf.get('split_num', 1)
+    multi_num = conf.get('multi_num',1)
+    lists = lists * multi_num
+    if_data_recover = conf.get('data_recover', False)
+    data_recover_conf = conf.get('data_recover_conf', {})
+    if if_data_recover:
+        print(f"recover data old list len:{len(lists)}")
+        start_idx = data_recover_conf.get('start_idx', 0)
+        if start_idx >= len(lists):
+            start_idx = 0
+        lists = lists[start_idx:]
+        print(f"recover data from {start_idx}, new list len:{len(lists)}")
+    dataset = DataList(lists, shuffle=shuffle, partition=partition, split_num=split_num)
+    if data_type == 'shard':
+        dataset = Processor(dataset, processor.url_opener)
+        dataset = Processor(dataset, processor.tar_file_and_group)
+    elif data_type == 'shard_full_data':
+        dataset = Processor(dataset, processor.url_opener)
+        dataset = Processor(dataset, processor.tar_file_and_group_full_data)
+    else:
+        dataset = Processor(dataset, processor.parse_raw)
+
+    speaker_conf = conf.get('speaker_conf', None)
+    if speaker_conf is not None:
+        dataset = Processor(dataset, processor.parse_speaker, **speaker_conf)
+    
+    if conf.get('eod_id', None) is not None:
+        tokenizer.eod_id = conf['eod_id']
+    # prompt dict
+    from gxl_ai_utils.utils import utils_file
+    other_tokenze_conf = conf.get('other_tokenze_conf', {})
+    global_prompt_dict = utils_file.load_dict_from_yaml(conf.get('prompt_conf_path',"conf/prompt_config.yaml"))
+    speech_token_num = conf.get('speech_token_num', 1)
+    dataset = Processor(dataset, processor.tokenize, tokenizer, other_tokenze_conf=other_tokenze_conf,
+                        global_prompt_dict=global_prompt_dict, speech_token_num=speech_token_num)
+    other_filter_conf = conf.get('other_filter_conf', {})
+    filter_conf = conf.get('filter_conf', {})
+    dataset = Processor(dataset, processor.filter, **filter_conf, other_filter_conf=other_filter_conf)
+
+    resample_conf = conf.get('resample_conf', {})
+    dataset = Processor(dataset, processor.resample, **resample_conf)
+
+    speed_perturb = conf.get('speed_perturb', False)
+    if speed_perturb:
+        dataset = Processor(dataset, processor.speed_perturb)
+
+    feats_type = conf.get('feats_type', 'fbank')
+    assert feats_type in ['fbank', 'mfcc', 'log_mel_spectrogram']
+    if feats_type == 'fbank':
+        fbank_conf = conf.get('fbank_conf', {})
+        dataset = Processor(dataset, processor.compute_fbank, **fbank_conf)
+    elif feats_type == 'mfcc':
+        mfcc_conf = conf.get('mfcc_conf', {})
+        dataset = Processor(dataset, processor.compute_mfcc, **mfcc_conf)
+    elif feats_type == 'log_mel_spectrogram':
+        log_mel_spectrogram_conf = conf.get('log_mel_spectrogram_conf', {})
+        dataset = Processor(dataset, processor.compute_log_mel_spectrogram,
+                            **log_mel_spectrogram_conf)
+
+    spec_aug = conf.get('spec_aug', True)
+    spec_sub = conf.get('spec_sub', False)
+    spec_trim = conf.get('spec_trim', False)
+    if spec_aug:
+        spec_aug_conf = conf.get('spec_aug_conf', {})
+        dataset = Processor(dataset, processor.spec_aug, **spec_aug_conf)
+    if spec_sub:
+        spec_sub_conf = conf.get('spec_sub_conf', {})
+        dataset = Processor(dataset, processor.spec_sub, **spec_sub_conf)
+    if spec_trim:
+        spec_trim_conf = conf.get('spec_trim_conf', {})
+        dataset = Processor(dataset, processor.spec_trim, **spec_trim_conf)
+    # for emotion-only task
+    # dataset = Processor(dataset, processor.add_ssl_vec)
+    if shuffle:
+        shuffle_conf = conf.get('shuffle_conf', {})
+        dataset = Processor(dataset, processor.shuffle, **shuffle_conf)
+
+    sort = conf.get('sort', True)
+    if sort:
+        sort_conf = conf.get('sort_conf', {})
+        dataset = Processor(dataset, processor.sort, **sort_conf)
+
+    batch_conf = conf.get('batch_conf', {})
+    dataset = Processor(dataset, processor.batch, **batch_conf)
+    dataset = Processor(dataset, processor.padding)
+    return dataset
