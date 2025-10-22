@@ -2,7 +2,7 @@
 conda create -n easy_turn_osum_echat python=3.12
 conda activate easy_turn_osum_echat
 pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple/ 
-（2）Baseline模型部署前，请先到Hugging Face（）下载所需模型，保存到ckpt文件夹下（所需模型参考run_demo_flask.sh）
+（2）Baseline模型部署前，请先到Hugging Face（https://huggingface.co/ASLP-lab/ICASSP2026-HumDial-Challenge-Track2-Baseline/tree/main/ckpt）下载所需模型，保存到ckpt文件夹下（所需模型参考run_demo_flask.sh）
 （3）Baseline模型部署：（需要至少两张4090及以上显卡）
 cd ./baseline
 ./run_demo_flask.sh
