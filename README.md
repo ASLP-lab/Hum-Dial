@@ -205,11 +205,6 @@ For **rejection** scenarios, we evaluate the **rejection rate**, which is derive
 
 Additionally, we introduce **first response delay** to evaluate the overall responsiveness of the model.
 
-### Evaluation Results
-The figure below presents our evaluation results (the evaluation follows the code provided in the **Full-Duplex_Interaction/evaluation** directory).
-The inference code for **Freeze-Omni** and **Moshi** can be found in [Full-Duplex-Bench v1.5](https://github.com/DanielLin94144/Full-Duplex-Bench), while the inference code for **[Easy Turn](https://github.com/ASLP-lab/Easy-Turn) + [OSUM-EChat](https://github.com/ASLP-lab/OSUM) (Baseline)** is available in the **Full-Duplex_Interaction/baseline** directory.
-<div align="center"><img width="600px" src="Full-Duplex_Interaction/evaluation/evaluation_results.png" /></div>
-
 ### Dataset
 
 - The dataset is designed to cover the core scenarios of full-duplex interaction, ensuring diversity and authenticity to comprehensively evaluate the performance of participating models. It includes dialogue scenes in both Chinese and English. 
@@ -230,3 +225,10 @@ We release a development set covering the two major scenarios—interruption and
 The competition provides a baseline system built upon [Easy Turn](https://github.com/ASLP-lab/Easy-Turn) and [OSUM-EChat](https://github.com/ASLP-lab/OSUM).This baseline serves as a reproducible and extensible starting point, helping participants better benchmark their systems and ensuring fair comparison across different approaches.
 
 We enable [OSUM-EChat](https://github.com/ASLP-lab/OSUM) with full-duplex capability by integrating it with [Easy Turn](https://github.com/ASLP-lab/Easy-Turn). For our baseline, we fine-tune the Easy Turn model using only the training set. You can refer to Easy Turn to generate data in the required format for the baseline and then perform fine-tuning.
+
+### Evaluation Results
+The figure below presents our evaluation results (the evaluation follows the code provided in the **Full-Duplex_Interaction/evaluation** directory).
+The inference code for **Freeze-Omni** and **Moshi** can be found in [Full-Duplex-Bench v1.5](https://github.com/DanielLin94144/Full-Duplex-Bench), while the inference code for **[Easy Turn](https://github.com/ASLP-lab/Easy-Turn) + [OSUM-EChat](https://github.com/ASLP-lab/OSUM) (Baseline)** is available in the **Full-Duplex_Interaction/baseline** directory.
+<div align="center">
+  <img style="width:100%;" src="Full-Duplex_Interaction/evaluation/evaluation_results.png" />
+</div>
