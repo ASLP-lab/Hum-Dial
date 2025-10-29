@@ -204,7 +204,7 @@ You can convert data from raw format to shard format using the script [do_make_s
 
 For a detailed introduction to the training, please refer to the official repository of OSUM-EChat.
 
-You can obtain the baseline model file from [Google drive](https://drive.google.com/drive/folders/1l-7WIikrSqMILrrGCgkvKEuTNPiIuGSh?usp=sharing)
+You can obtain the baseline model file from [Google drive](https://drive.google.com/drive/folders/1l-7WIikrSqMILrrGCgkvKEuTNPiIuGSh?usp=sharing) or [Baidu Netdisk](https://pan.baidu.com/s/1SzVQgEh1C3EsjBRdoBbHqA?pwd=mq1j)
 
 ## Track 2: Full-Duplex Interaction
 
