@@ -173,9 +173,31 @@ We release a development set, including task 1, task 2, task 3(selected from tas
 
 ### Baseline
 
-<!-- The competition provides a baseline system built upon [OpenS2S](https://github.com/CASIA-LM/OpenS2S).This baseline serves as a reproducible and extensible starting point, helping participants better benchmark their systems and ensuring fair comparison across different approaches.
+The competition provides a baseline built on [OSUM-EChat](https://github.com/ASLP-lab/OSUM/tree/main/OSUM-EChat).This baseline serves as a reproducible and extensible starting point, helping participants better benchmark their systems and ensuring fair comparison across different approaches.
 
-You can generate the data in the required baseline format by running [get_token.py](Emotional Intelligence/get_token.py), and then refer to OpenS2S for fine-tuning. -->
+Data is stored in jsonl format, one JSON object per line, with the following fields:
+
+{
+  "key": "1023390_bed51684_10",
+  "wav": "./4.wav",
+  "txt": "the final response",
+  "wav_1": "./1.wav",
+  "txt_1": "the first response",
+  "wav_2": "./2.wav",
+  "txt_2": "the second response",
+  "wav_3": "./3.wav",
+  "txt_3": "the third response",
+  "extra": {
+    "speech_token": [...],
+    "speech_token_1": [...],
+    "speech_token_2": [...],
+    "speech_token_3": [...]
+  },
+  "task": "<S2TCHAT> <TEXT2TOKEN> <HISTORY>"
+}
+
+You can convert data from raw format to shard format using the script [do_make_shard_from_raw.py](https://github.com/ASLP-lab/OSUM/blob/main/OSUM-EChat/common_utils/fake_data/shard/do_make_shard_from_raw.py)
+
 
 ## Track 2: Full-Duplex Interaction
 
