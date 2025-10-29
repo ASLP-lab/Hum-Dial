@@ -177,6 +177,7 @@ The competition provides a baseline built on [OSUM-EChat](https://github.com/ASL
 
 Data is stored in jsonl format, one JSON object per line, with the following fields:
 
+```
 {
   "key": "1023390_bed51684_10",
   "wav": "./4.wav",
@@ -195,9 +196,15 @@ Data is stored in jsonl format, one JSON object per line, with the following fie
   },
   "task": "<S2TCHAT> <TEXT2TOKEN> <HISTORY>"
 }
+```
+
+speech_token is extracted using S3Tokenizer. 
 
 You can convert data from raw format to shard format using the script [do_make_shard_from_raw.py](https://github.com/ASLP-lab/OSUM/blob/main/OSUM-EChat/common_utils/fake_data/shard/do_make_shard_from_raw.py)
 
+For a detailed introduction to the training, please refer to the official repository of OSUM-EChat.
+
+You can obtain the baseline model file from [Google drive](https://drive.google.com/drive/folders/1l-7WIikrSqMILrrGCgkvKEuTNPiIuGSh?usp=sharing)
 
 ## Track 2: Full-Duplex Interaction
 
