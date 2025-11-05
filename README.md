@@ -175,6 +175,8 @@ We release a development set, including task 1, task 2, task 3(selected from tas
 
 The competition provides a baseline built on [OSUM-EChat](https://github.com/ASLP-lab/OSUM/tree/main/OSUM-EChat).This baseline serves as a reproducible and extensible starting point, helping participants better benchmark their systems and ensuring fair comparison across different approaches.
 
+You can use Emotional_Intelligence/convert_data.py to convert the raw data into the format supported by the model for training.
+
 Data is stored in jsonl format, one JSON object per line, with the following fields:
 
 ```
