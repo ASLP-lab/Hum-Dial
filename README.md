@@ -25,7 +25,7 @@ All submitted models will undergo automated evaluation on an emotion test set, u
 
 ### Evaluation Metrics
 
-For detailed design specifications and implementation details of the evaluation prompts, please refer to our provided folder Emotional_Intelligence. Please note that these prompts may be subject to minor adjustments during the final evaluation phase to prevent the model from overfitting to specific evaluation prompts.
+We have provided three example codes for task evaluation for reference, which are in the "Emotional_Intelligence" folder. Please note that these prompts may be subject to minor adjustments during the final evaluation phase to prevent the model from overfitting to specific evaluation prompts.
 
 #### Task 1: Emotional Trajectory Summary
 - **Accuracy_Completeness**: Evaluate whether the model strictly and precisely matches and describes all emotion tags present in the conversation history, and accurately reconstructs the full emotional trajectory.  
@@ -44,11 +44,11 @@ For detailed design specifications and implementation details of the evaluation 
   *Score: 1, 3, or 5*
 
 #### Task 3: Empathy Assessment Task
-- **textual_empathy_insight**: Does the text demonstrate a deep, synthesized understanding of the entire conversation, or is it a shallow summary?  
+- **textual_empathy_insight**: Does the text act like a true confidante, actively validating and deepening understanding, rather than passively mirroring emotions?
   *Score: 1, 2, 3, 4 or 5*
-- **vocal_empathy_congruence**: Does the audio's emotion perfectly match the text's empathetic intent? This is about emotional delivery, not technical quality.  
+- **vocal_empathy_congruence**: Does the voice move beyond a robotic delivery to exhibit appropriate warmth, pauses, and tonal shifts tailored to the user's emotional state?
   *Score: 1, 2, 3, 4 or 5*
-- **audio_quality_naturalness**: How technically sound and human-like is the audio? This is about clarity, fluency, and realism.  
+- **audio_quality_naturalness**: How technically sound and human-like is the audio? This is about clarity, fluency, and realism.
   *Score: 1, 2, 3, 4 or 5*
 
 #### Examples
@@ -93,7 +93,8 @@ Same principle as task1.
 
 3. task3:
 
-For task 3, the turn with the final "neutral" emotion is used as the evaluation turn. All turns up to and including the evaluation turn (using `text` and `response_text`) are used as `conversation_history`. The `response_audio` of the evaluation turn is used as the `Final Model Response`. Input these elements into the scoring model to obtain scores.
+For task 3, the turn where the last emotion is not "neutral" shall be used as the evaluation turn. All turns up to and including the evaluation turn (using `text` and `response_text`) are used as `conversation_history`. The `response_audio` of the evaluation turn is used as the `Final Model Response`. Input these elements into the scoring model to obtain scores.
+
 
 
 ```json
