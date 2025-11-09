@@ -150,7 +150,6 @@ onnxruntime==1.22.1
 openai==1.107.2
 openai-whisper==20250625
 optuna==4.5.0
-oss2==2.19.1
 packaging==24.2
 pandas==2.3.2
 parso==0.8.5
@@ -177,7 +176,6 @@ pyannote.pipeline==3.0.1
 pyarrow==21.0.0
 pyasn1==0.6.1
 pyasn1_modules==0.4.2
-PyAudio==0.2.14
 pybind11==3.0.1
 pycparser==2.23
 pycryptodome==3.23.0
