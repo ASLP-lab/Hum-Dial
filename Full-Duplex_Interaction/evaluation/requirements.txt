@@ -266,7 +266,6 @@ tzdata==2025.2
 umap-learn==0.5.9.post2
 uritemplate==4.2.0
 urllib3==2.5.0
-utmosv2 @ file:///home/work_nfs11/gjli/workspaces/UTMOSv2
 wandb==0.21.4
 wcwidth==0.2.13
 webdataset==1.0.2
