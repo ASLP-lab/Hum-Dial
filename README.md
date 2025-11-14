@@ -262,5 +262,5 @@ We enable [OSUM-EChat](https://github.com/ASLP-lab/OSUM) with full-duplex capabi
 The figure below presents our evaluation results (the evaluation follows the code provided in the **Full-Duplex_Interaction/evaluation** directory).
 The inference code for **Freeze-Omni** and **Moshi** can be found in [Full-Duplex-Bench v1.5](https://github.com/DanielLin94144/Full-Duplex-Bench), while the inference code for **[Easy Turn](https://github.com/ASLP-lab/Easy-Turn) + [OSUM-EChat](https://github.com/ASLP-lab/OSUM) (Baseline)** is available in the **Full-Duplex_Interaction/baseline** directory.
 <div align="center">
-  <img style="width:100%;" src="Full-Duplex_Interaction/evaluation/evaluation_results.png" />
+  <img style="width:100%;" src="Full-Duplex_Interaction/evaluation/evaluation_result.png" />
 </div>
