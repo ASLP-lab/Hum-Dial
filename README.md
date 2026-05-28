@@ -1,6 +1,7 @@
 # ICASSP2026 HumDial Challenge
 
 This is the official GitHub repository for the [ICASSP2026 HumDial Challenge](https://aslp-lab.github.io/HumDial-Challenge/)
+HumDial-EIBench dataset is publicly available on HuggingFace: [HumDial-EIBench](https://huggingface.co/datasets/ASLP-lab/HumDial-EIBench)
 
 ## Track 1: Emotional Intelligence
 
